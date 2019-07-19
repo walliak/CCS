@@ -1,0 +1,394 @@
+#include <key.h>
+#include "led.h"
+#include "lcd.h"
+#include "motor.h"
+#include "MSP430F5529.h"
+#include "compositeChars.h"
+
+#define CPU_CLOCK       25000000		//时钟大于1M
+#define Delay_us(us)    __delay_cycles(CPU_CLOCK/1000000*(us))
+#define Delay_ms(ms)    __delay_cycles(CPU_CLOCK/1000*(ms))
+
+char function=0,switchFlag=0;
+unsigned char str_P_x1[4],str_P_y1[4],str_P_x2[4],str_P_y2[4],str_P_r[4];
+void Show(void);
+void Converse(void);
+void SetVcoreUp (unsigned int level);
+void CLK_Init(void);
+void MCU_Init(void);
+
+void main (void)
+{
+	char key=3,m2=5,m1=0,n2=5,n1=0;
+	char flag_1=0,flag_2=0,flag_3=0;
+	MCU_Init();
+	P1DIR |=BIT0;
+	 while(1)
+		 {
+		 	if(BIT0==(P4IN&BIT0))
+		 	{
+		 		P1OUT &=~BIT0;
+		 	}
+		 	P1OUT |=BIT0;
+		 	Show();
+		 	key = KeyScan();
+			if(key!=0)
+			{
+				switch(key)
+				{
+				 	case 1:	//两点连线
+							function = 1;
+							Converse();
+							Clear();
+							Show();
+							/***************************/
+							if(flag_1==1)
+							{
+								Work_PTP(P_x1,P_y1,P_x2,P_y2);
+							}
+							flag_1++;
+							/**************************/
+							Clear();
+							break;
+					case 2:	//直线
+							function = 2;
+							Converse();
+							Clear();
+							Show();
+							/***************************/
+							 if(flag_2==1)
+							 {
+							 	Motor_line();
+							 }
+							 flag_2++;
+
+							/**************************/
+							Clear();
+							break;
+					case 3:	//圆
+							function=3;
+							Converse();
+							Clear();
+							Show();
+							/***************************/
+							if(flag_3==1)
+							{
+								Motor_Circle();
+							}
+							 flag_3++;
+							/**************************/
+							Clear();
+							break;
+					case 4://退出
+
+							Converse();
+							Clear();
+							Show();
+							/***************************/
+							function=0,switchFlag=0;
+							m2=5,m1=0,n2=5,n1=0;
+							flag_1=0,flag_2=0,flag_3=0;
+							/**************************/
+							Clear();
+							break;
+					case 6://
+							switch(function)
+							{
+								case 1:
+								case 2:
+								case 3:
+										if(switchFlag%2==0)
+										{
+											if(m2>12)
+											{
+												m2=0;
+											}
+											P_x1=10*m2+m1;
+											m2++;
+										}
+										else
+										{
+										  if(m2>12)
+											{
+												m2=0;
+											}
+											P_x2=10*m2+m1;
+											m2++;
+										}
+										break;
+								default: break;
+							}
+							Clear();
+							Converse();
+							break;
+					case 7://
+							switch(function)
+							{
+								case 1:
+								case 2:
+								case 3:
+										if(switchFlag%2==0)
+										{
+											if(m1>9)
+											{
+												m1=0;
+											}
+											P_x1=10*m2+m1;
+											m1++;
+										}
+										else
+										{
+										  if(m1>9)
+											{
+												m1=0;
+											}
+											P_x2=10*m2+m1;
+											m1++;
+										}
+										break;
+							}
+							Clear();
+							Converse();
+							break;
+					case 8://
+							switch(function)
+							{
+								case 1:
+								case 2:
+										if(switchFlag%2==0)
+										{
+											if(n2>12)
+											{
+												n2=0;
+											}
+											P_y1=10*n2+n1;
+											n2++;
+										}
+										else
+										{
+										  if(n2>12)
+											{
+												n2=0;
+											}
+											P_y2=10*n2+n1;
+											n2++;
+										}
+										break;
+								case 3:
+										if(switchFlag%2==0)
+										{
+											if(n2>12)
+											{
+												n2=0;
+											}
+											P_y1=10*n2+n1;
+											n2++;
+										}
+										else
+										{
+										  if(n2>12)
+											{
+												n2=0;
+											}
+											P_r=10*n2+n1;
+											n2++;
+										}
+										break;
+							}
+							Clear();
+							Converse();
+							break;
+
+					case 9://
+							switch(function)
+							{
+								case 1:
+								case 2:
+										if(switchFlag%2==0)
+										{
+											if(n1>9)
+											{
+												n1=0;
+											}
+											P_y1=10*n2+n1;
+											n1++;
+										}
+										else
+										{
+										  if(n1>9)
+											{
+												n1=0;
+											}
+											P_y2=10*n2+n1;
+											n1++;
+										}
+										break;
+								case 3:
+										if(switchFlag%2==0)
+										{
+											if(n1>9)
+											{
+												n1=0;
+											}
+											P_y1=10*n2+n1;
+											n1++;
+										}
+										else
+										{
+										  if(n1>9)
+											{
+												n1=0;
+											}
+											P_r=10*n2+n1;
+											n1++;
+										}
+										break;
+							}
+							Clear();
+							Converse();
+							break;
+					case 5://切换下一个坐标点
+							if(switchFlag==10)
+							{
+								switchFlag=0;
+							}
+							switchFlag++;
+							Converse();
+							Clear();
+							Show();
+							break;
+				}
+			}
+		 }
+}
+
+void Show(void)
+{
+
+	if(function==1)
+	{
+		DrawcharS("1.line",0,0);
+		DrawcharS(" start",1,1);DrawcharS(str_P_x1,1,8);DrawcharS(",",1,11);DrawcharS(str_P_y1,1,12);
+		DrawcharS(" end  ",2,1);DrawcharS(str_P_x2,2,8);DrawcharS(",",2,11);DrawcharS(str_P_y2,2,12);
+	}
+	else if(function==2)
+	{
+		DrawcharS("2.Straight",0,0);
+		DrawcharS(" start",1,1);DrawcharS(str_P_x1,1,8);DrawcharS(",",1,11);DrawcharS(str_P_y1,1,12);
+		DrawcharS(" end  ",2,1);DrawcharS(str_P_x2,2,8);DrawcharS(",",2,11);DrawcharS(str_P_y2,2,12);
+	}
+	else if(function==3)
+	{
+		DrawcharS("3.Circle",0,0);
+		DrawcharS(" point",1,1);DrawcharS(str_P_x1,1,8);DrawcharS(",",1,11);DrawcharS(str_P_y1,1,12);
+		DrawcharS(" raduis",2,1);DrawcharS(str_P_r,2,8);
+
+	}
+	else
+	{
+		DrawcharS("1.line",0,0);
+		DrawcharS("2.Straight",1,0);
+		DrawcharS("3.Circle",2,0);
+	}
+
+	if(function!=0)
+	{
+		if(switchFlag%2==0)
+		{
+			DrawcharS("*",1,0);
+			DrawcharS("  ",2,0);
+		}
+		else
+		{
+			DrawcharS("*",2,0);
+			DrawcharS("  ",1,0);
+		}
+	}
+
+}
+
+void Converse(void)
+{
+	itoa(P_x1,str_P_x1);
+	itoa(P_x2,str_P_x2);
+	itoa(P_y1,str_P_y1);
+	itoa(P_y2,str_P_y2);
+	itoa(P_r ,str_P_r);
+}
+
+void SetVcoreUp (unsigned int level)
+ {
+     // Open PMM registers for write
+     PMMCTL0_H = PMMPW_H;
+     // Set SVS/SVM high side new level
+     SVSMHCTL = SVSHE + SVSHRVL0 * level + SVMHE + SVSMHRRL0 * level;
+     // Set SVM low side to new level
+     SVSMLCTL = SVSLE + SVMLE + SVSMLRRL0 * level;
+     // Wait till SVM is settled
+     while ((PMMIFG & SVSMLDLYIFG) == 0);
+    // Clear already set flags
+     PMMIFG &= ~(SVMLVLRIFG + SVMLIFG);
+     // Set VCore to new level
+     PMMCTL0_L = PMMCOREV0 * level;
+     // Wait till new level reached
+     if ((PMMIFG & SVMLIFG))
+     while ((PMMIFG & SVMLVLRIFG) == 0);
+     // Set SVS/SVM low side to new level
+     SVSMLCTL = SVSLE + SVSLRVL0 * level + SVMLE + SVSMLRRL0 * level;
+     // Lock PMM registers for write access
+     PMMCTL0_H = 0x00;
+ }
+/*****************************************************
+	相关时钟线及时钟源的引脚
+	ACLK  -> P1.0		XT2IN  ->P5.2
+	SMCLK -> P2.2		XT2OUT ->P5.3
+	MCLK  -> P7.7		XIN	   ->P5.4
+						XOUT   ->P5.5
+
+*****************************************************/
+void CLK_Init(void) //系统时钟配置
+{
+    WDTCTL = WDTPW+WDTHOLD;
+
+    P7SEL |= BIT7; 			//MCLK
+    P7DIR |= BIT7;
+    P5SEL |= BIT4|BIT5;
+
+    UCSCTL6 |= XCAP_3;
+    UCSCTL6 &= ~XT1OFF;//打开 XT1，否则 XT1LFOFFG 可能报错
+
+    SetVcoreUp(3); 			//提高 Vcore 电压到最高级，以满足倍频需求。该函数位于HAL_PMM.H 中。
+    __bis_SR_register(SCG0);//该语法为固定格式，意为将括号内的变量置位，SCG0与系统工作模式有关，此时 MCLK 暂停工作
+
+    UCSCTL0 = 0; 			//先清零，FLL 运行时，该寄存器系统会自动配置，不用管
+    UCSCTL1 = DCORSEL_5;
+    UCSCTL2 = FLLD_1 |380;	//FLLD=1,FLLN=380,则频率为2*（380+1）*32.768=24.969MHZ
+
+    __bic_SR_register(SCG0);
+    __delay_cycles(782000);//系统自带的精确延时，单位 us
+    while(SFRIFG1 & OFIFG)
+    {
+        UCSCTL7 &= ~(XT2OFFG + XT1LFOFFG + DCOFFG);
+        SFRIFG1 &= ~OFIFG;
+    }
+    UCSCTL4 &=~(SELS_7|SELM_7);				//// 先将相应控制位清零
+    UCSCTL4 |= SELS__DCOCLK|SELM__DCOCLK;	//// SMCLK MCLK 均选择DCOCLK;
+}
+
+void MCU_Init(void)
+{
+	WDTCTL=WDTPW+WDTHOLD; //关闭看门狗
+	CLK_Init();
+	LCDInit();
+	LedInit();
+	KeyPort_Init();
+	Motor_Init();
+
+	Clear();
+	DrawcharS("Project-5",1,4);
+	DrawcharS("5.1--now",2,4);
+	Delay_ms(1000);
+	Clear();
+	_enable_interrupts();							//使能总中断
+
+}

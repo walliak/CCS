@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item value="273" key="DIALOG_WIDTH"/>
+		<item value="68" key="DIALOG_Y_ORIGIN"/>
+		<item value="437" key="DIALOG_HEIGHT"/>
+		<item value="1067" key="DIALOG_X_ORIGIN"/>
+		<item value="1|Microsoft YaHei UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Microsoft YaHei UI" key="DIALOG_FONT_NAME"/>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item value="true" key="wrap"/>
+		<item value="false" key="isRegEx"/>
+		<item value="false" key="casesensitive"/>
+		<item value="false" key="incremental"/>
+		<item value="false" key="wholeword"/>
+		<item value="P" key="selection"/>
+		<list key="findhistory">
+			<item value="P"/>
+			<item value="LED1"/>
+			<item value="(P3IN &amp; 0x70)"/>
+			<item value="0X70"/>
+			<item value="0X30"/>
+			<item value="0X50"/>
+			<item value="0X60"/>
+			<item value="ENC"/>
+		</list>
+		<list key="replacehistory">
+			<item value="L"/>
+			<item value="READPB123"/>
+			<item value="FLAGPB3"/>
+			<item value="FLAGPB2"/>
+			<item value="FLAGPB1"/>
+			<item value=""/>
+		</list>
+	</section>
+</section>

@@ -1,0 +1,75 @@
+/*
+ * motor.h
+ *
+ *  Created on: 2019年7月14日
+ *      Author: JOJO
+ */
+
+#ifndef SRC_MOTOR_H_
+#define SRC_MOTOR_H_
+
+
+/**************************************变量定义********************************/
+
+#define distance 110
+#define circumference 4.66					//电机转一圈，绳子变化4.66cm
+#define pi 3.1415926
+#define N1	240
+#define N2	30
+#define OPENTIMA       TA0CTL |=TAIE
+#define CLOSETIMA		 TA0CTL &=~TAIE
+
+
+//八拍	CCW = CounterClockWise ; CW = ClockWise
+unsigned char  eightCCW[8] = {0x08,0x0c,0x04,0x06,0x02,0x03,0x01,0x09} ; //逆时钟旋转相序表
+unsigned char  eightCW[8]={0x09,0x01,0x03,0x02,0x06,0x04,0x0c,0x08};    //正时钟旋转相序表
+
+//四拍
+unsigned char  fourCCW[4]={0x01,0x08,0x04,0x02};
+unsigned char  fourCW[4]={0x02,0x04,0x08,0x01};\
+
+struct Point array_1[N1+1];
+struct Point array_2[N2];
+
+int P_x1=50,P_y1=65,P_x2=70,P_y2=70,P_r=25;
+
+//两个电机运行状态  判断一次点到点的过程是否执行完毕
+static  unsigned int  Mortors_Status = 0;
+
+/************************************枚举及结构体定义******************************************/
+
+//电机旋转方向（正，反）
+typedef enum {
+	FORWAED = 0,
+	REVERSE
+}Dir;
+
+
+typedef enum {FALSE = 0, TRUE = !FALSE} bool;
+
+typedef struct Point
+{
+	float x;
+	float y;
+}Point;
+
+typedef struct Motor
+{
+	/**********电机运行速率（即定时器触发时间）为确定值 *********/
+	bool   status ;        					//电机运行状态（true：运行中，false：停止）
+	unsigned  long  number  ;		//运行脉冲数
+	Dir    dir;									//旋转方向
+}Motor;
+
+
+void Motor_Init();
+void Motor1_IO_Out( unsigned char data);
+void Motor2_IO_Out(unsigned char data);
+void Set_run_message(float x1, float y1, float x2, float y2);
+void Timer_Motor_Init();
+void Motor_Circle(void);
+void get_circle_xy(int x,int y ,int r,int n );
+
+#endif /* SRC_MOTOR_H_ */
+
+

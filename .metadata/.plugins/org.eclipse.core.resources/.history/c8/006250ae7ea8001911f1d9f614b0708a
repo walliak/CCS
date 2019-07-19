@@ -1,0 +1,74 @@
+/*
+ * my_time.c
+ *
+ *  Created on: 2019年7月10日
+ *      Author: JOJO
+ *      普通定时功能
+ */
+
+#include "my_time.h"
+
+
+/*
+ * 设定16位定时器
+ * 最大定时值65535     当前计数值存入TAR寄存器
+ * MCx 4种计数模式        TACCR0预设值
+ *
+ */
+char  TA_init(char Clk,char Div,char Mode,unsigned int Period)
+{
+	TA0CTL =0;
+
+	  switch(Clk)  															//为定时器TA选择时钟源
+	  {
+	    case 'A': case 'a': 		TA0CTL|=TASSEL_1; break;   				//ACLK
+	    case 'S': case 's': 		TA0CTL|=TASSEL_2; break;  				//SMCLK
+	    case 'E':            		TA0CTL|=TASSEL_0; break;  				//外部输入(TACLK)
+	    case 'e':          			TA0CTL|=TASSEL_3; break;   				//外部输入(TACLK取反)
+	    default :  return(0);  												//设置参数有误，返回0
+	  }
+
+	  switch(Div) 															//为定时器TA选择分频系数
+	  {
+	    case 1:   TA0CTL|=ID_0; break;   //1
+	    case 2:   TA0CTL|=ID_1; break;   //2
+	    case 4:   TA0CTL|=ID_2; break;   //4
+	    case 8:   TA0CTL|=ID_3; break;   //8
+	    default :  return(0);  												//设置参数有误，返回0
+	  }
+
+	  switch(Mode)															//为定时器选择计数模式
+	  {
+	  case '0':
+			  TA0CTL |=MC_0; break;										//停止计数
+	  case '1':
+		  	  TA0CTL |=MC_1; break;										//增计数  0-TACCR0
+	  case '2':
+	     	  TA0CTL |=MC_2; break;										//连续计数  重复0-0xFFFF
+	  case '3':
+		      TA0CTL |=MC_3; break;										//增减计数  0---TACCR0----0
+	  default : return(0);
+	  }
+
+	  if (Period>65535)	return(0);
+	  	 TA0CCR0 = Period;
+	  return (1);
+}
+
+
+/******************************************************************************************************
+ * 名       称：Time0_A_Init()
+ * 功       能：初始化TA0
+ * 入口参数：无
+ * 出口参数：无
+ * 说       明：就是初始化相关IO的状态
+ * 范       例：无
+ ******************************************************************************************************/
+void Time0_A_Init()
+{
+  TA0CCTL0 = CCIE;                         	// 允许比较/捕获模块0的中断
+  TA0CCR0 = SYSCLK/AWG_FREQ/SAMPLENUM;		//设定TA定时周期
+  TA0CTL = TASSEL_2 + MC_1;           //TA0设为增计数模式，时钟=SMCLK
+  _enable_interrupts();                       //开全局总中断，
+}
+

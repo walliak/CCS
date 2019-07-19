@@ -1,0 +1,65 @@
+/*
+ * motor.h
+ *
+ *  Created on: 2019年7月14日
+ *      Author: JOJO
+ */
+
+#ifndef EX_MOTOR_SRC_MOTOR_H_
+#define EX_MOTOR_SRC_MOTOR_H_
+
+
+/**************************************变量定义********************************/
+
+#define distance 110
+#define circumference_Right  5.1				//电机转一圈，绳子变化5cm
+#define circumference_Left   	5.1
+#define pi 3.1415
+#define OPENTIMA       TA0CTL |=TAIE
+#define CLOSETIMA		 TA0CTL &=~TAIE
+#define INITSPEED        1250
+/************************************枚举及结构体定义******************************************/
+
+//电机旋转方向（正，反）
+typedef enum {
+	FORWAED = 0,
+	REVERSE
+}Dir;
+
+typedef enum {ZERO,FIR,SEC,TIR,FOR} Quadrant;
+
+typedef enum {FALSE = 0, TRUE = !FALSE} bool;
+
+
+
+
+typedef struct Point
+{
+	float x;
+	float y;
+}Point;
+
+typedef struct Motor
+{
+	/**********电机运行速率（即定时器触发时间）为确定值 *********/
+	bool   status ;        					//电机运行状态（true：运行中，false：停止）
+	unsigned  long  number  ;		//运行脉冲数
+	Dir    dir;									//旋转方向
+}Motor;
+
+
+void Motor_Init();
+void	 Motor1_IO_Out( unsigned char data);
+void	 Motor2_IO_Out(unsigned char data);
+void Set_run_message(float x1, float y1, float x2, float y2);
+void Timer_Motor_Init();
+void Motor_Circle(void);
+void get_Quadrant( float x2, float y2);
+void Error_correction(Quadrant quadrant);
+void get_circle_xy(int x,int y ,int r,int n );
+void Work_PTP(float x1, float y1, float x2, float y2);
+//void set_motor(unsigned int number);
+void  set_correction(float Left_Put,float Left_Close,float Right_Put,float Right_Close);
+#endif /* EX_MOTOR_SRC_MOTOR_H_ */
+
+

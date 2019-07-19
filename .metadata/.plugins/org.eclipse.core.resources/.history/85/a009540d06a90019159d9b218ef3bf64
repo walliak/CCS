@@ -1,0 +1,378 @@
+/*
+ * motor.c
+ *
+ *  Created on: 2019年7月14日
+ *      Author: JOJO
+ */
+#include "motor.h"
+#include "math.h"
+#include "MSP430F5529.h"
+#include "my_time.h"
+
+//八拍	CCW = CounterClockWise ; CW = ClockWise
+unsigned char  eightCCW[8] = {0x08,0x0c,0x04,0x06,0x02,0x03,0x01,0x09} ; //逆时钟旋转相序表
+unsigned char  eightCW[8]={0x09,0x01,0x03,0x02,0x06,0x04,0x0c,0x08};    //正时钟旋转相序表
+
+//四拍
+unsigned char  fourCCW[4]={0x01,0x08,0x04,0x02};
+unsigned char  fourCW[4]={0x02,0x04,0x08,0x01};
+
+int P_x1=50,P_y1=65,P_x2=70,P_y2=70,P_r=25;
+
+// 左,右电机初始化
+Motor motor_Left={FALSE,0};
+Motor motor_Right = {FALSE,0};
+
+/*******************************************JOJO添加部分*********************************************/
+/**
+ * 		Author: JOJO    19.7.15
+ * 		参数: null
+ * 		返回值: null
+ * 		功能:  电机Io初始化   P1.2 P1.3 P1.4 P1.5      ||    P2.2   P2.3  P2.4  P2.5
+ * */
+void Motor_Init()
+{
+	P1DIR  |= BIT2 + BIT3 +BIT4 +BIT5;   //输出模式
+	P2DIR  |= BIT2 + BIT3 +BIT4 +BIT5;
+	Timer0_Init();
+}
+
+
+/**
+ * 		Author: JOJO    19.7.15
+ * 		参数: null
+ * 		返回值: null
+ * 		功能:  将相序表中输出至相应IO口
+ * */
+void	 Motor1_IO_Out( unsigned char data)
+{
+		P1OUT =0;
+		P1OUT  |= (data << 2);   //左移两位至 P1.2
+}
+
+
+void	 Motor2_IO_Out(unsigned char data)
+{
+		P2OUT 	 = 0;
+		P2OUT  |= ( data <<2);  //P2.2
+}
+
+
+/***************************************/
+/**
+ * 		Author: JOJO    19.7.15
+ * 		参数: Point1(x1,y1)   Point2(x2,y2)
+ * 		返回值: null
+ * 		功能: 判断单次点到点时,左右电机需要转动的方向(dir)及脉冲数(number) ; 写入电机(Mortor)中
+ * */
+void Set_run_message(float x1, float y1, float x2, float y2)
+{
+	float a1,a2,b1,b2;
+	a1 = sqrt(x1*x1+y1*y1);
+	a2 = sqrt(x2*x2+y2*y2);
+	b1 = sqrt((DISTANCE-x1)*(DISTANCE-x1)+y1*y1);
+	b2 = sqrt((DISTANCE-x2)*(DISTANCE-x2)+y2*y2);
+
+/******************将参数写入motor_Left,motor_Right 中******************************/
+
+	if(a1>a2)//左边线伸长
+	{
+		motor_Left.status =TRUE;
+		motor_Left.number = (long)((a1-a2)*4096/(CIRCUMFERENCE_LEFT)+0.5);
+		motor_Left.dir    = FORWAED ;
+	}
+	else    	 //左边线缩短
+	{
+		motor_Left.status =TRUE;
+		motor_Left.number =(long)((a2-a1)*4096/(CIRCUMFERENCE_LEFT)+0.5);
+		motor_Left.dir    = REVERSE;
+	}
+
+	if(b1>b2) //右边线缩短
+	{
+		motor_Right.status = TRUE;
+		motor_Right.number = (long)((b1-b2)*4096/(CIRCUMFERENCE_RIGHT)+0.5);
+		motor_Right.dir    =  REVERSE;
+	}
+	else	 	  //右边线伸长
+	{
+		motor_Right.status = TRUE;
+		motor_Right.number = (long)((b2-b1)*4096/(CIRCUMFERENCE_RIGHT)+0.5);
+		motor_Right.dir    =  FORWAED ;
+	}
+
+	OPENTIMA;						//定时器中断使能 ,电机开启
+}
+
+/******************定时器(控制电机速率)*********************
+ *		注意:  定时器中断标志位不会自动清零
+ * 		时钟信号:	SCLK
+ * 		模式:		自增
+ * 		分频:		默认1
+ *
+ *
+ 	TAxCTL	————定时器Ax的控制寄存器。
+
+	TAxCCTLn————定时器Ax里的捕获比较单元n的控制寄存器，多了个C是Capture/Compare。
+
+	TAxR	————定时器Ax的计数器，这个不归我们管。
+
+	TAxCCRn	————定时器Ax里的捕获比较寄存器，用到这个捕获比较的时候直接写就行，或者是写CCR0。
+
+	TAxIV	————定时器Ax的中断向量寄存器。进这个中断时查看就行，switch。
+
+	TAxEX0	————定时器A扩增的寄存器，里面只有一个TAIDEX对时钟再分频，可以忽略。
+ ***********************************************************/
+void Timer0_Init()
+{
+	 TA0CCR0 =INITSPEED;
+	 TA0CTL |=TASSEL_2+MC_1 ;//选择SCLK作为时钟，选用增模式，并开启中断
+}
+
+/**
+ * 		Author: JOJO    19.7.15
+ * 		参数: null
+ * 		返回值: null
+ * 		功能:  输出一次电机脉冲 ;  判断单次点到点的过程是否执行完毕(Mortors_Status)
+ * 		说明:  定时器中断函数 ;  64*64 = 4096  个脉冲为电机完整一圈
+ * */
+#pragma vector= TIMER0_A1_VECTOR
+__interrupt void TIMER0_A1_ISR(void)
+{
+	TA0CTL &=~TAIFG;					//定时器中断标志位清零
+
+	/*****根据左电机状态输出脉冲****/
+	if(motor_Left.status  && (motor_Left.number>0) )
+	{
+			switch (motor_Left.dir)
+			{
+				case FORWAED  :	Motor1_IO_Out(eightCW[motor_Left.number%8]);   break;       //正转
+				case REVERSE  :	Motor1_IO_Out(eightCCW[motor_Left.number%8]); break;		//反转
+				default:	break;
+			}
+			motor_Left.number--;						//完成一次脉冲输出,待输出脉冲数自减一
+	}
+	if(motor_Left.number == 0)						//当待输出脉冲为0时,电机状态为关闭
+			motor_Left.status =FALSE;
+
+	/*****根据右电机状态输出脉冲****/
+	if(motor_Right.status && (motor_Right.number>0))
+	{
+			switch (motor_Right.dir)
+			{
+				case FORWAED  :	Motor2_IO_Out(eightCW[motor_Right.number%8]);   break;
+				case REVERSE  :	Motor2_IO_Out(eightCCW[motor_Right.number%8]);  break;
+				default:	break;
+			}
+			motor_Right.number--;
+	}
+	if(motor_Right.number ==0)
+				motor_Right.status = FALSE;
+
+	if( !motor_Left.status && !motor_Right.status )
+		LPM0_EXIT;		//退出低功耗
+
+}
+
+
+/****************************************************************************************/
+void Get_circle_xy(int x,int y ,int r,int n )
+{
+	int i ;
+	float xx,yy;
+
+	array_1[0].x = x;
+	array_1[0].y = y;
+
+	array_1[n/4].x = x-r;
+	array_1[n/4].y = y;
+
+	array_1[n/2].x = x;
+	array_1[n/2].y = y+r;
+
+	array_1[(n/2) + (n/4)].x = x+r;
+	array_1[(n/2) + (n/4)].y = y;
+
+	array_1[n].x = x;
+	array_1[n].y = y-r;
+
+	for(i=1;i<=(n/4)-1;i++){
+		xx = r*cos((2*PI/n)*i) ;
+		yy = r*sin((2*PI/n)*i) ;
+
+		array_1[i].x = x-yy ;
+		array_1[i].y = y-xx;
+
+		array_1[n/4+i].x =x-xx ;
+		array_1[n/4+i].y =y+yy ;
+
+		array_1[n/2+i].x =x+yy ;
+		array_1[n/2+i].y =y+xx ;
+
+		array_1[3*n/4 + i].x = x+xx;
+		array_1[3*n/4 + i].y = y-yy;
+	}
+}
+
+/**
+ * 		Author: JOJO    19.7.15
+ * 		参数: Point1(x1,y1)   Point2(x2,y2)
+ * 		返回值: null
+ * 		功能: 实现点到点的电机控制
+ * 		说明:
+ * */
+void Work_PTP(float x1, float y1, float x2, float y2)
+{
+	Set_run_message(x1,y1,x2,y2);
+	LPM0 ;									//进入低功耗
+	CLOSETIMA;							//关闭定时器
+}
+
+/*
+@Description 直线点轨迹坐标
+		   返回结构体数组指针
+*/
+void Get_line_xy(int x0,int y0,int x1,int y1,int n)
+{
+	float a,b;
+	int i = 1;
+	a = (x1-x0)/(n-1);
+	b = (y1-y0)/(n-1);
+	array_2[0].x = x0;
+	array_2[0].y = y0;
+
+	array_2[n-1].x = x1;
+	array_2[n-1].y = y1;
+
+	for(;i<n-1;i++)
+	{
+		array_2[i].x = x0+a*i;
+		array_2[i].y = y0+b*i;
+	}
+}
+
+
+//生成直线
+void Motor_line(void)
+{
+	int n;
+	float x1,y1,x2,y2;
+	Get_line_xy(P_x1,P_y1,P_x2,P_y2,N2);
+	for(n=0;n<N2-1;n++)
+	{
+	 	x1 = array_2[n].x;
+		y1 = array_2[n].y;
+		x2 = array_2[n+1].x;
+		y2 = array_2[n+1].y;
+		Work_PTP(x1, y1, x2, y2);
+	}
+}
+
+
+
+//生成圆
+void Motor_Circle(void)
+{
+	int n;
+	float x1,y1,x2,y2;
+	Get_circle_xy(P_x1,P_y1,P_r,N1);
+	for(n=0;n<=N1;n++)
+	{
+		x1 = array_1[n].x;
+		y1 = array_1[n].y;
+		x2 = array_1[n+1].x;
+		y2 = array_1[n+1].y;
+		Work_PTP(x1, y1, x2, y2);
+	}
+}
+
+// 方向
+enum Direction
+{
+	UP = 1,//P6.4
+	DOWN,  //P6.5
+	RIGHT, //P6.6
+	UP_RIGHT,
+	DOWN_RIGHT,
+	ALL_LIGHT,	 // 全亮
+	ALL_BLACK,	 // 全灭
+};
+
+
+// 检测数据判断下一个运动方向,返回值为 方向
+enum Direction  next_Direction()
+{
+	if(P6>>4 == 0x01)
+	return UP;
+	if(P6>>4 == 0x02)
+	return DOWN;
+	if(P6>>4 == 0x04)
+	return RIGHT;
+	if(P6>>4 == 0x05)
+	return UP_RIGHT;
+	if(P6>>4 == 0x06)
+	return DOWN_RIGHT;
+	if(P6>>4 == 0x07)
+	return ALL_LIGHT;
+	if(P6>>4 == 0x00)
+	return ALL_BLACK;
+
+}
+
+//根据方向值确定下一点坐标,输入当前坐标值.
+void Set_Next_Point()
+{
+	enum Direction direction;
+	direction = next_Direction();
+	switch(direction)
+	{
+		case UP:	// 上移
+			nextPoint_x = startPoint_x;
+			nextPoint_y = startPoint_y+1;
+			break;
+
+		case DOWN:	// 下移
+			nextPoint_x = startPoint_x;
+			nextPoint_y = startPoint_y-1;
+			break;
+
+		case RIGHT:
+			nextPoint_x = startPoint_x+1;
+			nextPoint_y = startPoint_y;
+			break;
+
+		case UP_RIGHT:
+			nextPoint_x = startPoint_x+1;
+			nextPoint_y = startPoint_y+1;
+			break;
+
+		case DOWN_RIGHT:
+			nextPoint_x = startPoint_x+1;
+			nextPoint_y = startPoint_y-1;
+			break;
+
+		case ALL_LIGHT: // 全亮 向右走
+			nextPoint_x = startPoint_x+1;
+			nextPoint_y = startPoint_y;
+			break;
+
+		default:	// 全灭 停留至当前位置
+			nextPoint_x = startPoint_x;
+			nextPoint_y = startPoint_y;
+			break;
+	}
+}
+
+void Motor_black()
+{
+	enum Direction working;
+	while(1)
+	{
+		if(working == ALL_BLACK)
+		break;
+		Set_Next_Point();
+		Work_PTP(startPoint_x,startPoint_y,nextPoint_x,nextPoint_y);
+		startPoint_x = nextPoint_x;
+		startPoint_y = nextPoint_y;
+	}
+}

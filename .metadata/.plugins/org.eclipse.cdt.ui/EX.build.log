@@ -1,0 +1,53 @@
+
+**** Build of configuration Debug for project EX ****
+
+"D:\\CCS6.1.0.00104_win32\\CCS\\ccsv6\\utils\\bin\\gmake" -k all 
+'Building file: ../main.c'
+'Invoking: MSP430 Compiler'
+"D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/bin/cl430" -vmspx --abi=eabi --data_model=restricted --use_hw_mpy=F5 --include_path="D:/CCS6.1.0.00104_win32/CCS/ccsv6/ccs_base/msp430/include" --include_path="E:/WindowsDesktop/QQDownload/EX/EX/src" --include_path="D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include" --include_path="E:/WindowsDesktop/Control/EX/F5529_example/driverlib/MSP430F5xx_6xx" --advice:power="none" -g --define=__MSP430F5529__ --define=DEPRECATED --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU23 --silicon_errata=CPU40 --printf_support=minimal --preproc_with_compile --preproc_dependency="main.pp"  "../main.c"
+'Finished building: ../main.c'
+' '
+'Building file: ../src/key.c'
+'Invoking: MSP430 Compiler'
+"D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/bin/cl430" -vmspx --abi=eabi --data_model=restricted --use_hw_mpy=F5 --include_path="D:/CCS6.1.0.00104_win32/CCS/ccsv6/ccs_base/msp430/include" --include_path="E:/WindowsDesktop/QQDownload/EX/EX/src" --include_path="D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include" --include_path="E:/WindowsDesktop/Control/EX/F5529_example/driverlib/MSP430F5xx_6xx" --advice:power="none" -g --define=__MSP430F5529__ --define=DEPRECATED --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU23 --silicon_errata=CPU40 --printf_support=minimal --preproc_with_compile --preproc_dependency="src/key.pp" --obj_directory="src"  "../src/key.c"
+"../src/key.c", line 135: warning #179-D: variable "pin1_level" was declared but never referenced
+'Finished building: ../src/key.c'
+' '
+'Building file: ../src/lcd.c'
+'Invoking: MSP430 Compiler'
+"D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/bin/cl430" -vmspx --abi=eabi --data_model=restricted --use_hw_mpy=F5 --include_path="D:/CCS6.1.0.00104_win32/CCS/ccsv6/ccs_base/msp430/include" --include_path="E:/WindowsDesktop/QQDownload/EX/EX/src" --include_path="D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include" --include_path="E:/WindowsDesktop/Control/EX/F5529_example/driverlib/MSP430F5xx_6xx" --advice:power="none" -g --define=__MSP430F5529__ --define=DEPRECATED --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU23 --silicon_errata=CPU40 --printf_support=minimal --preproc_with_compile --preproc_dependency="src/lcd.pp" --obj_directory="src"  "../src/lcd.c"
+'Finished building: ../src/lcd.c'
+' '
+'Building file: ../src/led.c'
+'Invoking: MSP430 Compiler'
+"D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/bin/cl430" -vmspx --abi=eabi --data_model=restricted --use_hw_mpy=F5 --include_path="D:/CCS6.1.0.00104_win32/CCS/ccsv6/ccs_base/msp430/include" --include_path="E:/WindowsDesktop/QQDownload/EX/EX/src" --include_path="D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include" --include_path="E:/WindowsDesktop/Control/EX/F5529_example/driverlib/MSP430F5xx_6xx" --advice:power="none" -g --define=__MSP430F5529__ --define=DEPRECATED --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU23 --silicon_errata=CPU40 --printf_support=minimal --preproc_with_compile --preproc_dependency="src/led.pp" --obj_directory="src"  "../src/led.c"
+'Finished building: ../src/led.c'
+' '
+'Building file: ../src/motor.c'
+'Invoking: MSP430 Compiler'
+"D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/bin/cl430" -vmspx --abi=eabi --data_model=restricted -Ooff --use_hw_mpy=F5 --include_path="D:/CCS6.1.0.00104_win32/CCS/ccsv6/ccs_base/msp430/include" --include_path="E:/WindowsDesktop/QQDownload/EX/EX/src" --include_path="D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include" --include_path="E:/WindowsDesktop/Control/EX/F5529_example/driverlib/MSP430F5xx_6xx" --advice:power="none" -g --define=__MSP430F5529__ --define=DEPRECATED --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU23 --silicon_errata=CPU40 --printf_support=minimal --preproc_with_compile --preproc_dependency="src/motor.pp" --obj_directory="src"  "../src/motor.c"
+'Finished building: ../src/motor.c'
+' '
+'Building file: ../src/multi_button.c'
+'Invoking: MSP430 Compiler'
+"D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/bin/cl430" -vmspx --abi=eabi --data_model=restricted --use_hw_mpy=F5 --include_path="D:/CCS6.1.0.00104_win32/CCS/ccsv6/ccs_base/msp430/include" --include_path="E:/WindowsDesktop/QQDownload/EX/EX/src" --include_path="D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include" --include_path="E:/WindowsDesktop/Control/EX/F5529_example/driverlib/MSP430F5xx_6xx" --advice:power="none" -g --define=__MSP430F5529__ --define=DEPRECATED --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU23 --silicon_errata=CPU40 --printf_support=minimal --preproc_with_compile --preproc_dependency="src/multi_button.pp" --obj_directory="src"  "../src/multi_button.c"
+'Finished building: ../src/multi_button.c'
+' '
+'Building file: ../src/my_clock.c'
+'Invoking: MSP430 Compiler'
+"D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/bin/cl430" -vmspx --abi=eabi --data_model=restricted --use_hw_mpy=F5 --include_path="D:/CCS6.1.0.00104_win32/CCS/ccsv6/ccs_base/msp430/include" --include_path="E:/WindowsDesktop/QQDownload/EX/EX/src" --include_path="D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include" --include_path="E:/WindowsDesktop/Control/EX/F5529_example/driverlib/MSP430F5xx_6xx" --advice:power="none" -g --define=__MSP430F5529__ --define=DEPRECATED --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU23 --silicon_errata=CPU40 --printf_support=minimal --preproc_with_compile --preproc_dependency="src/my_clock.pp" --obj_directory="src"  "../src/my_clock.c"
+'Finished building: ../src/my_clock.c'
+' '
+'Building file: ../src/my_time.c'
+'Invoking: MSP430 Compiler'
+"D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/bin/cl430" -vmspx --abi=eabi --data_model=restricted --use_hw_mpy=F5 --include_path="D:/CCS6.1.0.00104_win32/CCS/ccsv6/ccs_base/msp430/include" --include_path="E:/WindowsDesktop/QQDownload/EX/EX/src" --include_path="D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include" --include_path="E:/WindowsDesktop/Control/EX/F5529_example/driverlib/MSP430F5xx_6xx" --advice:power="none" -g --define=__MSP430F5529__ --define=DEPRECATED --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU23 --silicon_errata=CPU40 --printf_support=minimal --preproc_with_compile --preproc_dependency="src/my_time.pp" --obj_directory="src"  "../src/my_time.c"
+'Finished building: ../src/my_time.c'
+' '
+'Building target: EX.out'
+'Invoking: MSP430 Linker'
+"D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/bin/cl430" -vmspx --abi=eabi --data_model=restricted --use_hw_mpy=F5 --advice:power="none" -g --define=__MSP430F5529__ --define=DEPRECATED --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU23 --silicon_errata=CPU40 --printf_support=minimal -z -m"EX.map" --heap_size=160 --stack_size=160 --cinit_hold_wdt=on -i"D:/CCS6.1.0.00104_win32/CCS/ccsv6/ccs_base/msp430/include" -i"D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/lib" -i"D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include" -i"D:/CCS6.1.0.00104_win32/CCS/ccsv6/ccs_base/msp430/lib/5xx_6xx_FRxx" --reread_libs --warn_sections --display_error_number --diag_wrap=off --xml_link_info="EX_linkInfo.xml" --use_hw_mpy=F5 --rom_model -o "EX.out" "./main.obj" "./src/key.obj" "./src/lcd.obj" "./src/led.obj" "./src/motor.obj" "./src/multi_button.obj" "./src/my_clock.obj" "./src/my_time.obj" "../lnk_msp430f5529.cmd"  -l"libmath.a" -l"libc.a" 
+<Linking>
+'Finished building target: EX.out'
+' '
+
+**** Build Finished ****
