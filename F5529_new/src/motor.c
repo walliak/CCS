@@ -335,38 +335,36 @@ enum Direction  next_Direction()
 
 void Set_Next_Point(enum Direction direction)
 {
-	float del=0.3,bigdel=0.5;
-//	enum Direction direction;
-//	direction = next_Direction();
+	float up_dis=0.2,down_dis=0.1,right_dis=0.2,bigdel=0.5;
 	switch(direction)
 	{
 		case UP:	//
 			nextPoint_x = startPoint_x;
-			nextPoint_y = startPoint_y+del;
+			nextPoint_y = startPoint_y+up_dis;
 			break;
 
 		case DOWN:	//
 			nextPoint_x = startPoint_x;
-			nextPoint_y = startPoint_y-del;
+			nextPoint_y = startPoint_y+down_dis;
 			break;
 
 		case RIGHT:
-			nextPoint_x = startPoint_x+del;
+			nextPoint_x = startPoint_x+right_dis;
 			nextPoint_y = startPoint_y;
 			break;
 
 		case UP_RIGHT:
-			nextPoint_x = startPoint_x+del;
-			nextPoint_y = startPoint_y+del;
+			nextPoint_x = startPoint_x+right_dis;
+			nextPoint_y = startPoint_y+up_dis;
 			break;
 
 		case DOWN_RIGHT:
-			nextPoint_x = startPoint_x+del;
-			nextPoint_y = startPoint_y-del;
+			nextPoint_x = startPoint_x+right_dis;
+			nextPoint_y = startPoint_y+down_dis;
 			break;
 
 		case ALL: //
-			nextPoint_x = startPoint_x+del;
+			nextPoint_x = startPoint_x+right_dis;
 			nextPoint_y = startPoint_y;
 			break;
 
@@ -394,7 +392,7 @@ void Motor_black()
 		startPoint_y = nextPoint_y;
 	}
 }
-
+//
 /***************************************/
 /**
  * 		Author: JOJO
