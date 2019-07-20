@@ -14,6 +14,9 @@ void Converse(void);
 void MCU_Init(void);
 
 void main (void)
+
+
+
 {
 	char key=3,m2=5,m1=0,n2=5,n1=0;
 	char flag_1=0,flag_2=0,flag_3=0;
@@ -34,13 +37,13 @@ void main (void)
 							/***************************/
 							if(flag_1==1)
 							{
-								Work_PTP(P_x1,P_y1,P_x2,P_y2);
+								Work_PTP(P_x1+0.5,P_y1-2.5,P_x2+0.5,P_y2-2.5);
 							}
 							flag_1++;
 							/**************************/
 							Clear();
 							break;
-					case 2:	//Ö±Ïß
+					case 2:	//Ñ­¼£
 							function = 2;
 							Converse();
 							Clear();
@@ -48,7 +51,7 @@ void main (void)
 							/***************************/
 							 if(flag_2==1)
 							 {
-							 	Motor_line();
+							 	Motor_black();
 							 }
 							 flag_2++;
 

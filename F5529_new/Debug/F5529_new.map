@@ -1,7 +1,7 @@
 ******************************************************************************
                   MSP430 Linker PC v4.4.3                      
 ******************************************************************************
->> Linked Fri Jul 19 10:30:43 2019
+>> Linked Sat Jul 20 14:38:56 2019
 
 OUTPUT FILE NAME:   <F5529_new.out>
 ENTRY POINT SYMBOL: "_c_int00_noargs_noexit"  address: 000044d4
@@ -19,7 +19,7 @@ MEMORY CONFIGURATION
   INFOB                 00001900   00000080  00000000  00000080  RWIX
   INFOA                 00001980   00000080  00000000  00000080  RWIX
   USBRAM                00001c00   00000800  00000000  00000800  RWIX
-  RAM                   00002400   00002000  00000648  000019b8  RWIX
+  RAM                   00002400   00002000  00000560  00001aa0  RWIX
   FLASH                 00004400   0000bb80  0000082a  0000b356  RWIX
   INT00                 0000ff80   00000002  00000000  00000002  RWIX
   INT01                 0000ff82   00000002  00000000  00000002  RWIX
@@ -85,7 +85,7 @@ MEMORY CONFIGURATION
   INT61                 0000fffa   00000002  00000002  00000000  RWIX
   INT62                 0000fffc   00000002  00000002  00000000  RWIX
   RESET                 0000fffe   00000002  00000002  00000000  RWIX
-  FLASH2                00010000   00014400  00004278  00010188  RWIX
+  FLASH2                00010000   00014400  000043e4  0001001c  RWIX
 
 
 SECTION ALLOCATION MAP
@@ -93,27 +93,28 @@ SECTION ALLOCATION MAP
  output                                  attributes/
 section   page    origin      length       input sections
 --------  ----  ----------  ----------   ----------------
-.bss       0    00002400    0000042c     UNINITIALIZED
+.bss       0    00002400    00000344     UNINITIALIZED
                   00002400    00000328     (.common:array_1)
-                  00002728    000000f0     (.common:array_2)
-                  00002818    00000004     (.common:str_P_r)
-                  0000281c    00000004     (.common:str_P_x1)
-                  00002820    00000004     (.common:str_P_x2)
-                  00002824    00000004     (.common:str_P_y1)
-                  00002828    00000004     (.common:str_P_y2)
+                  00002728    00000004     (.common:nextPoint_x)
+                  0000272c    00000004     (.common:nextPoint_y)
+                  00002730    00000004     (.common:str_P_r)
+                  00002734    00000004     (.common:str_P_x1)
+                  00002738    00000004     (.common:str_P_x2)
+                  0000273c    00000004     (.common:str_P_y1)
+                  00002740    00000004     (.common:str_P_y2)
 
-.data      0    0000282c    0000017c     UNINITIALIZED
-                  0000282c    000000b0     rts430x_lc_rd_eabi.lib : signal.obj (.data:sigtable)
-                  000028dc    00000080                            : xvalues.obj (.data)
-                  0000295c    00000026     motor.obj (.data)
-                  00002982    00000008     motor.obj (.data:eightCCW)
-                  0000298a    00000008     motor.obj (.data:eightCW)
-                  00002992    00000008     rts430x_lc_rd_eabi.lib : feraiseexcept.obj (.data)
-                  0000299a    00000004                            : _lock.obj (.data:_lock)
-                  0000299e    00000004                            : _lock.obj (.data:_unlock)
-                  000029a2    00000003     lcd.obj (.data)
-                  000029a5    00000001     main.obj (.data)
-                  000029a6    00000002     rts430x_lc_rd_eabi.lib : errno.obj (.data)
+.data      0    00002744    0000017c     UNINITIALIZED
+                  00002744    000000b0     rts430x_lc_rd_eabi.lib : signal.obj (.data:sigtable)
+                  000027f4    00000080                            : xvalues.obj (.data)
+                  00002874    00000026     motor.obj (.data)
+                  0000289a    00000008     motor.obj (.data:eightCCW)
+                  000028a2    00000008     motor.obj (.data:eightCW)
+                  000028aa    00000008     rts430x_lc_rd_eabi.lib : feraiseexcept.obj (.data)
+                  000028b2    00000004                            : _lock.obj (.data:_lock)
+                  000028b6    00000004                            : _lock.obj (.data:_unlock)
+                  000028ba    00000003     lcd.obj (.data)
+                  000028bd    00000001     main.obj (.data)
+                  000028be    00000002     rts430x_lc_rd_eabi.lib : errno.obj (.data)
 
 .stack     0    00004360    000000a0     UNINITIALIZED
                   00004360    00000004     rts430x_lc_rd_eabi.lib : boot.obj (.stack)
@@ -142,7 +143,7 @@ section   page    origin      length       input sections
 *          0    00004400    00000000     UNINITIALIZED
 
 .TI.persistent 
-*          0    0000282c    00000000     UNINITIALIZED
+*          0    00002744    00000000     UNINITIALIZED
 
 RTC        0    0000ffd2    00000002     
                   0000ffd2    00000002     rts430x_lc_rd_eabi.lib : int41.obj (.int41)
@@ -221,105 +222,106 @@ SYSNMI     0    0000fffc    00000002
 .reset     0    0000fffe    00000002     
                   0000fffe    00000002     rts430x_lc_rd_eabi.lib : boot.obj (.reset)
 
-.text      0    00010000    00004278     
+.text      0    00010000    000043e4     
                   00010000    00000452     rts430x_lc_rd_eabi.lib : frcdivd.obj (.text:__TI_frcdivd)
                   00010452    000003e4     motor.obj (.text:get_circle_xy)
                   00010836    000003c2     rts430x_lc_rd_eabi.lib : xsin.obj (.text:_Sin)
-                  00010bf8    0000034c     main.obj (.text:main)
-                  00010f44    0000031a     rts430x_lc_rd_eabi.lib : fmod.obj (.text:fmod)
-                  0001125e    000002fc     motor.obj (.text:Set_run_message)
-                  0001155a    000002e4     rts430x_lc_rd_eabi.lib : frcmpyd.obj (.text:__TI_frcmpyd)
-                  0001183e    000002d8                            : addd.obj (.text:__mspabi_addd)
-                  00011b16    00000282                            : mpyd.obj (.text:__mspabi_mpyd)
-                  00011d98    00000266     lcd.obj (.text:Drawchar)
-                  00011ffe    00000252     rts430x_lc_rd_eabi.lib : frcaddd.obj (.text:__TI_frcaddd)
-                  00012250    00000222                            : divd.obj (.text:__mspabi_divd)
-                  00012472    000001f0                            : sqrt.obj (.text:sqrt)
-                  00012662    000001be     main.obj (.text:Show)
-                  00012820    0000019e     rts430x_lc_rd_eabi.lib : xdscale.obj (.text:_Dscale)
-                  000129be    00000180     key.obj (.text:KeyScan)
-                  00012b3e    00000130     rts430x_lc_rd_eabi.lib : fs_add.obj (.text)
-                  00012c6e    0000012c     motor.obj (.text:Get_line_xy)
-                  00012d9a    0000012a     motor.obj (.text:get_Quadrant)
-                  00012ec4    00000100     rts430x_lc_rd_eabi.lib : xdnorm.obj (.text:_Dnorm)
-                  00012fc4    000000fc     motor.obj (.text:Error_correction)
-                  000130c0    000000d8     rts430x_lc_rd_eabi.lib : cmpd.obj (.text:__mspabi_cmpd)
-                  00013198    000000b8     motor.obj (.text:set_correction)
-                  00013250    000000b6     rts430x_lc_rd_eabi.lib : fs_mpy.obj (.text)
-                  00013306    000000b4     motor.obj (.text:Motor_line)
-                  000133ba    000000b2     rts430x_lc_rd_eabi.lib : renormd.obj (.text:__TI_renormd)
-                  0001346c    000000b0     lcd.obj (.text:LCDInit)
-                  0001351c    000000ae     motor.obj (.text:Motor_Circle)
-                  000135ca    00000094     rts430x_lc_rd_eabi.lib : fltlid.obj (.text:__mspabi_fltlid)
-                  0001365e    0000008c                            : cvtdf.obj (.text:__mspabi_cvtdf)
-                  000136ea    00000078     sysclock.obj (.text:CLK_Init)
-                  00013762    00000072     lcd.obj (.text:DrawcharS)
-                  000137d4    00000072     rts430x_lc_rd_eabi.lib : xdunscal.obj (.text:_Dunscale)
-                  00013846    0000006c                            : autoinit_wdt.obj (.text:_auto_init_hold_wdt)
-                  000138b2    00000068                            : copy_decompress_rle.obj (.text:__TI_decompress_rle_core)
-                  0001391a    00000066     lcd.obj (.text:DrawPoint)
-                  00013980    00000066     rts430x_lc_rd_eabi.lib : fixdli.obj (.text:__mspabi_fixdli)
-                  000139e6    00000064                            : cvtfd.obj (.text:__mspabi_cvtfd)
-                  00013a4a    00000062     motor.obj (.text:Work_PTP)
-                  00013aac    00000062     lcd.obj (.text:WrateC)
-                  00013b0e    00000062     lcd.obj (.text:WrateD)
-                  00013b70    00000058     main.obj (.text:MCU_Init)
-                  00013bc8    00000054     CompositeChars.obj (.text:itoa)
-                  00013c1c    0000004e     sysclock.obj (.text:SetVcoreUp)
-                  00013c6a    0000004c     rts430x_lc_rd_eabi.lib : fs_toul.obj (.text)
-                  00013cb6    0000004a                            : fs_cmp.obj (.text)
-                  00013d00    00000048     lcd.obj (.text:Clear)
-                  00013d48    0000003e     main.obj (.text:Converse)
-                  00013d86    0000003e     rts430x_lc_rd_eabi.lib : asr32.obj (.text:l_asr_const)
-                  00013dc4    0000003e                            : lsl32.obj (.text:l_lsl_const)
-                  00013e02    0000003e                            : lsr32.obj (.text:l_lsr_const)
-                  00013e40    0000003a                            : lsr64.obj (.text:__mspabi_srlll)
-                  00013e7a    00000038                            : signal.obj (.text:signal)
-                  00013eb2    00000036                            : xferaise.obj (.text:_Feraise)
-                  00013ee8    00000036                            : fs_itof.obj (.text)
-                  00013f1e    00000034                            : feraiseexcept.obj (.text:feraiseexcept)
-                  00013f52    00000032                            : subd.obj (.text:__mspabi_subd)
-                  00013f84    00000032                            : raise.obj (.text:raise)
-                  00013fb6    00000032                            : fs_ultof.obj (.text)
-                  00013fe8    0000002e                            : negd.obj (.text:__mspabi_negd)
-                  00014016    0000002e     CompositeChars.obj (.text:reverse)
-                  00014044    0000002c     lcd.obj (.text:LCD_setXY)
-                  00014070    0000002c     rts430x_lc_rd_eabi.lib : div16s.obj (.text)
-                  0001409c    00000024     key.obj (.text:KeyPort_Init)
-                  000140c0    00000024     motor.obj (.text:Motor_Init)
-                  000140e4    00000024     rts430x_lc_rd_eabi.lib : copy_zero_init.obj (.text:decompress:ZI:__TI_zero_init)
-                  00014108    00000022                            : mult32_f5hw.obj (.text)
-                  0001412a    00000018     motor.obj (.text:Motor1_IO_Out)
-                  00014142    00000018     motor.obj (.text:Motor2_IO_Out)
-                  0001415a    00000016     rts430x_lc_rd_eabi.lib : div16u.obj (.text)
-                  00014170    00000016                            : mult16_f5hw.obj (.text)
-                  00014186    00000014     lcd.obj (.text:LCDWrite)
-                  0001419a    00000014     rts430x_lc_rd_eabi.lib : memcpy.obj (.text:memcpy)
-                  000141ae    00000012                            : copy_decompress_none.obj (.text:decompress:none:__TI_decompress_none)
-                  000141c0    00000010                            : asr32.obj (.text:l_asr)
-                  000141d0    00000010                            : lsl32.obj (.text:l_lsl)
-                  000141e0    00000010                            : lsr32.obj (.text:l_lsr)
-                  000141f0    0000000e     motor.obj (.text:Timer0_Init)
-                  000141fe    0000000e     rts430x_lc_rd_eabi.lib : cos.obj (.text:cos)
-                  0001420c    0000000e                            : sin.obj (.text:sin)
-                  0001421a    0000000e                            : strlen.obj (.text:strlen)
-                  00014228    0000000c     led.obj (.text:LedInit)
-                  00014234    0000000c     rts430x_lc_rd_eabi.lib : fltid.obj (.text:__mspabi_fltid)
-                  00014240    0000000a                            : abs.obj (.text:abs)
-                  0001424a    0000000a                            : asr16.obj (.text)
-                  00014254    0000000a                            : lsl16.obj (.text)
-                  0001425e    0000000a                            : lsr16.obj (.text)
-                  00014268    00000006                            : copy_decompress_rle.obj (.text:decompress:rle24:__TI_decompress_rle24)
-                  0001426e    00000004                            : pre_init.obj (.text:_system_pre_init)
-                  00014272    00000004                            : exit.obj (.text:abort)
-                  00014276    00000002                            : _lock.obj (.text:_nop)
+                  00010bf8    00000374     main.obj (.text:main)
+                  00010f6c    00000360     motor.obj (.text:Set_run_message)
+                  000112cc    0000031a     rts430x_lc_rd_eabi.lib : fmod.obj (.text:fmod)
+                  000115e6    000002e4                            : frcmpyd.obj (.text:__TI_frcmpyd)
+                  000118ca    000002d8                            : addd.obj (.text:__mspabi_addd)
+                  00011ba2    00000282                            : mpyd.obj (.text:__mspabi_mpyd)
+                  00011e24    00000266     lcd.obj (.text:Drawchar)
+                  0001208a    00000252     rts430x_lc_rd_eabi.lib : frcaddd.obj (.text:__TI_frcaddd)
+                  000122dc    00000222                            : divd.obj (.text:__mspabi_divd)
+                  000124fe    000001f0                            : sqrt.obj (.text:sqrt)
+                  000126ee    000001cc     motor.obj (.text:Set_Next_Point)
+                  000128ba    000001be     main.obj (.text:Show)
+                  00012a78    0000019e     rts430x_lc_rd_eabi.lib : xdscale.obj (.text:_Dscale)
+                  00012c16    00000180     key.obj (.text:KeyScan)
+                  00012d96    00000130     rts430x_lc_rd_eabi.lib : fs_add.obj (.text)
+                  00012ec6    0000012a     motor.obj (.text:get_Quadrant)
+                  00012ff0    00000100     rts430x_lc_rd_eabi.lib : xdnorm.obj (.text:_Dnorm)
+                  000130f0    000000fc     motor.obj (.text:Error_correction)
+                  000131ec    000000d8     rts430x_lc_rd_eabi.lib : cmpd.obj (.text:__mspabi_cmpd)
+                  000132c4    000000b8     motor.obj (.text:set_correction)
+                  0001337c    000000b6     rts430x_lc_rd_eabi.lib : fs_mpy.obj (.text)
+                  00013432    000000b2                            : renormd.obj (.text:__TI_renormd)
+                  000134e4    000000b0     lcd.obj (.text:LCDInit)
+                  00013594    000000ae     motor.obj (.text:Motor_Circle)
+                  00013642    00000094     rts430x_lc_rd_eabi.lib : fltlid.obj (.text:__mspabi_fltlid)
+                  000136d6    0000008c                            : cvtdf.obj (.text:__mspabi_cvtdf)
+                  00013762    00000082     motor.obj (.text:Motor_black)
+                  000137e4    00000078     sysclock.obj (.text:CLK_Init)
+                  0001385c    00000072     lcd.obj (.text:DrawcharS)
+                  000138ce    00000072     rts430x_lc_rd_eabi.lib : xdunscal.obj (.text:_Dunscale)
+                  00013940    00000072     motor.obj (.text:next_Direction)
+                  000139b2    0000006c     rts430x_lc_rd_eabi.lib : autoinit_wdt.obj (.text:_auto_init_hold_wdt)
+                  00013a1e    00000068                            : copy_decompress_rle.obj (.text:__TI_decompress_rle_core)
+                  00013a86    00000066     lcd.obj (.text:DrawPoint)
+                  00013aec    00000066     rts430x_lc_rd_eabi.lib : fixdli.obj (.text:__mspabi_fixdli)
+                  00013b52    00000064                            : cvtfd.obj (.text:__mspabi_cvtfd)
+                  00013bb6    00000062     motor.obj (.text:Work_PTP)
+                  00013c18    00000062     lcd.obj (.text:WrateC)
+                  00013c7a    00000062     lcd.obj (.text:WrateD)
+                  00013cdc    00000058     main.obj (.text:MCU_Init)
+                  00013d34    00000054     CompositeChars.obj (.text:itoa)
+                  00013d88    0000004e     sysclock.obj (.text:SetVcoreUp)
+                  00013dd6    0000004c     rts430x_lc_rd_eabi.lib : fs_toul.obj (.text)
+                  00013e22    0000004a                            : fs_cmp.obj (.text)
+                  00013e6c    00000048     lcd.obj (.text:Clear)
+                  00013eb4    0000003e     main.obj (.text:Converse)
+                  00013ef2    0000003e     rts430x_lc_rd_eabi.lib : asr32.obj (.text:l_asr_const)
+                  00013f30    0000003e                            : lsl32.obj (.text:l_lsl_const)
+                  00013f6e    0000003e                            : lsr32.obj (.text:l_lsr_const)
+                  00013fac    0000003a                            : lsr64.obj (.text:__mspabi_srlll)
+                  00013fe6    00000038                            : signal.obj (.text:signal)
+                  0001401e    00000036                            : xferaise.obj (.text:_Feraise)
+                  00014054    00000036                            : fs_itof.obj (.text)
+                  0001408a    00000034                            : feraiseexcept.obj (.text:feraiseexcept)
+                  000140be    00000032                            : subd.obj (.text:__mspabi_subd)
+                  000140f0    00000032                            : raise.obj (.text:raise)
+                  00014122    00000032                            : fs_ultof.obj (.text)
+                  00014154    0000002e                            : negd.obj (.text:__mspabi_negd)
+                  00014182    0000002e     CompositeChars.obj (.text:reverse)
+                  000141b0    0000002c     lcd.obj (.text:LCD_setXY)
+                  000141dc    0000002c     rts430x_lc_rd_eabi.lib : div16s.obj (.text)
+                  00014208    00000024     key.obj (.text:KeyPort_Init)
+                  0001422c    00000024     motor.obj (.text:Motor_Init)
+                  00014250    00000024     rts430x_lc_rd_eabi.lib : copy_zero_init.obj (.text:decompress:ZI:__TI_zero_init)
+                  00014274    00000022                            : mult32_f5hw.obj (.text)
+                  00014296    00000018     motor.obj (.text:Motor1_IO_Out)
+                  000142ae    00000018     motor.obj (.text:Motor2_IO_Out)
+                  000142c6    00000016     rts430x_lc_rd_eabi.lib : div16u.obj (.text)
+                  000142dc    00000016                            : mult16_f5hw.obj (.text)
+                  000142f2    00000014     lcd.obj (.text:LCDWrite)
+                  00014306    00000014     rts430x_lc_rd_eabi.lib : memcpy.obj (.text:memcpy)
+                  0001431a    00000012                            : copy_decompress_none.obj (.text:decompress:none:__TI_decompress_none)
+                  0001432c    00000010                            : asr32.obj (.text:l_asr)
+                  0001433c    00000010                            : lsl32.obj (.text:l_lsl)
+                  0001434c    00000010                            : lsr32.obj (.text:l_lsr)
+                  0001435c    0000000e     motor.obj (.text:Timer0_Init)
+                  0001436a    0000000e     rts430x_lc_rd_eabi.lib : cos.obj (.text:cos)
+                  00014378    0000000e                            : sin.obj (.text:sin)
+                  00014386    0000000e                            : strlen.obj (.text:strlen)
+                  00014394    0000000c     led.obj (.text:LedInit)
+                  000143a0    0000000c     rts430x_lc_rd_eabi.lib : fltid.obj (.text:__mspabi_fltid)
+                  000143ac    0000000a                            : abs.obj (.text:abs)
+                  000143b6    0000000a                            : asr16.obj (.text)
+                  000143c0    0000000a                            : lsl16.obj (.text)
+                  000143ca    0000000a                            : lsr16.obj (.text)
+                  000143d4    00000006                            : copy_decompress_rle.obj (.text:decompress:rle24:__TI_decompress_rle24)
+                  000143da    00000004                            : pre_init.obj (.text:_system_pre_init)
+                  000143de    00000004                            : exit.obj (.text:abort)
+                  000143e2    00000002                            : _lock.obj (.text:_nop)
 
 
 LINKER GENERATED COPY TABLES
 
 __TI_cinit_table @ 00004c1a records: 2, size/record: 8, table size: 16
-	.data: load addr=00004b9e, load size=00000069 bytes, run addr=0000282c, run size=0000017c bytes, compression=rle
-	.bss: load addr=00004c14, load size=00000006 bytes, run addr=00002400, run size=0000042c bytes, compression=zero_init
+	.data: load addr=00004b9e, load size=00000069 bytes, run addr=00002744, run size=0000017c bytes, compression=rle
+	.bss: load addr=00004c14, load size=00000006 bytes, run addr=00002400, run size=00000344 bytes, compression=zero_init
 
 
 LINKER GENERATED HANDLER TABLE
@@ -417,7 +419,7 @@ address   name
 00000733  ADC12MEM9_H             
 00000732  ADC12MEM9_L             
 000044f4  AsciiFontData           
-00014272  C$$EXIT                 
+000143de  C$$EXIT                 
 000008c0  CBCTL0                  
 000008c1  CBCTL0_H                
 000008c0  CBCTL0_L                
@@ -434,7 +436,7 @@ address   name
 000008cd  CBINT_H                 
 000008cc  CBINT_L                 
 000008ce  CBIV                    
-000136ea  CLK_Init                
+000137e4  CLK_Init                
 00000150  CRCDI                   
 00000152  CRCDIRB                 
 00000153  CRCDIRB_H               
@@ -447,8 +449,8 @@ address   name
 00000156  CRCRESR                 
 00000157  CRCRESR_H               
 00000156  CRCRESR_L               
-00013d00  Clear                   
-00013d48  Converse                
+00013e6c  Clear                   
+00013eb4  Converse                
 00000510  DMA0CTL                 
 00000511  DMA0CTL_H               
 00000510  DMA0CTL_L               
@@ -497,10 +499,10 @@ address   name
 0000050e  DMAIV                   
 0000050f  DMAIV_H                 
 0000050e  DMAIV_L                 
-0001391a  DrawPoint               
-00011d98  Drawchar                
-00013762  DrawcharS               
-00012fc4  Error_correction        
+00013a86  DrawPoint               
+00011e24  Drawchar                
+0001385c  DrawcharS               
+000130f0  Error_correction        
 00000140  FCTL1                   
 00000141  FCTL1_H                 
 00000140  FCTL1_L                 
@@ -510,13 +512,12 @@ address   name
 00000146  FCTL4                   
 00000147  FCTL4_H                 
 00000146  FCTL4_L                 
-00012c6e  Get_line_xy             
-0001409c  KeyPort_Init            
-000129be  KeyScan                 
-0001346c  LCDInit                 
-00014186  LCDWrite                
-00014044  LCD_setXY               
-00014228  LedInit                 
+00014208  KeyPort_Init            
+00012c16  KeyScan                 
+000134e4  LCDInit                 
+000142f2  LCDWrite                
+000141b0  LCD_setXY               
+00014394  LedInit                 
 000004c4  MAC                     
 000004da  MAC32H                  
 000004db  MAC32H_H                
@@ -535,7 +536,7 @@ address   name
 000004c6  MACS_L                  
 000004c5  MAC_H                   
 000004c4  MAC_L                   
-00013b70  MCU_Init                
+00013cdc  MCU_Init                
 000004c0  MPY                     
 000004ec  MPY32CTL0               
 000004ed  MPY32CTL0_H             
@@ -557,11 +558,11 @@ address   name
 000004c2  MPYS_L                  
 000004c1  MPY_H                   
 000004c0  MPY_L                   
-0001412a  Motor1_IO_Out           
-00014142  Motor2_IO_Out           
-0001351c  Motor_Circle            
-000140c0  Motor_Init              
-00013306  Motor_line              
+00014296  Motor1_IO_Out           
+000142ae  Motor2_IO_Out           
+00013594  Motor_Circle            
+0001422c  Motor_Init              
+00013762  Motor_black             
 000004c8  OP2                     
 000004e2  OP2H                    
 000004e3  OP2H_H                  
@@ -702,11 +703,11 @@ address   name
 0000012e  PMMRIE                  
 0000012f  PMMRIE_H                
 0000012e  PMMRIE_L                
-00002964  P_r                     
-0000295c  P_x1                    
-00002960  P_x2                    
-0000295e  P_y1                    
-00002962  P_y2                    
+0000287c  P_r                     
+00002874  P_x1                    
+00002878  P_x2                    
+00002876  P_y1                    
+0000287a  P_y2                    
 00000158  RCCTL0                  
 00000159  RCCTL0_H                
 00000158  RCCTL0_L                
@@ -819,9 +820,10 @@ address   name
 0000019a  SYSUNIV                 
 0000019b  SYSUNIV_H               
 0000019a  SYSUNIV_L               
-00013c1c  SetVcoreUp              
-0001125e  Set_run_message         
-00012662  Show                    
+00013d88  SetVcoreUp              
+000126ee  Set_Next_Point          
+00010f6c  Set_run_message         
+000128ba  Show                    
 00000352  TA0CCR0                 
 00000354  TA0CCR1                 
 00000356  TA0CCR2                 
@@ -875,7 +877,7 @@ address   name
 000003ee  TB0IV                   
 000003d0  TB0R                    
 00004400  TIMER0_A1_ISR           
-000141f0  Timer0_Init             
+0001435c  Timer0_Init             
 000005d0  UCA0ABCTL               
 000005c6  UCA0BRW                 
 000005c7  UCA0BRW_H               
@@ -1114,26 +1116,26 @@ address   name
 0000015c  WDTCTL                  
 0000015d  WDTCTL_H                
 0000015c  WDTCTL_L                
-00013a4a  Work_PTP                
-00013aac  WrateC                  
-00013b0e  WrateD                  
-000028dc  _Denorm                 
-00012ec4  _Dnorm                  
-00012820  _Dscale                 
-000137d4  _Dunscale               
-000028ec  _Eps                    
-000029a6  _Errno                  
-00002992  _Fenv                   
-00013eb2  _Feraise                
-000028fc  _Hugeval                
-0000290c  _Inf                    
-0000291c  _Nan                    
-0000293c  _Rteps                  
+00013bb6  Work_PTP                
+00013c18  WrateC                  
+00013c7a  WrateD                  
+000027f4  _Denorm                 
+00012ff0  _Dnorm                  
+00012a78  _Dscale                 
+000138ce  _Dunscale               
+00002804  _Eps                    
+000028be  _Errno                  
+000028aa  _Fenv                   
+0001401e  _Feraise                
+00002814  _Hugeval                
+00002824  _Inf                    
+00002834  _Nan                    
+00002854  _Rteps                  
 00010836  _Sin                    
-0000292c  _Snan                   
-00002996  _Tls_setup__Fenv        
-0000294c  _Xbig                   
-00002954  _Zero                   
+00002844  _Snan                   
+000028ae  _Tls_setup__Fenv        
+00002864  _Xbig                   
+0000286c  _Zero                   
 00004400  __STACK_END             
 000000a0  __STACK_SIZE            
 00004c1a  __TI_CINIT_Base         
@@ -1143,11 +1145,11 @@ address   name
 UNDEFED   __TI_INITARRAY_Base     
 UNDEFED   __TI_INITARRAY_Limit    
 000044ee  __TI_ISR_TRAP           
-000141ae  __TI_decompress_none    
-00014268  __TI_decompress_rle24   
-00011ffe  __TI_frcaddd            
+0001431a  __TI_decompress_none    
+000143d4  __TI_decompress_rle24   
+0001208a  __TI_frcaddd            
 00010000  __TI_frcdivd            
-0001155a  __TI_frcmpyd            
+000115e6  __TI_frcmpyd            
 0000ffd2  __TI_int41              
 0000ffd4  __TI_int42              
 0000ffd6  __TI_int43              
@@ -1170,127 +1172,129 @@ UNDEFED   __TI_INITARRAY_Limit
 0000fff8  __TI_int60              
 0000fffa  __TI_int61              
 0000fffc  __TI_int62              
-000133ba  __TI_renormd            
-000140e4  __TI_zero_init          
+00013432  __TI_renormd            
+00014250  __TI_zero_init          
 ffffffff  __binit__               
 ffffffff  __c_args__              
-0001183e  __mspabi_addd           
-00012b44  __mspabi_addf           
-000130c0  __mspabi_cmpd           
-00013cb6  __mspabi_cmpf           
-0001365e  __mspabi_cvtdf          
-000139e6  __mspabi_cvtfd          
-00012250  __mspabi_divd           
-00014070  __mspabi_divi           
-0001415a  __mspabi_divu           
-00013980  __mspabi_fixdli         
-00013c6a  __mspabi_fixful         
-00014234  __mspabi_fltid          
-00013ee8  __mspabi_fltif          
-000135ca  __mspabi_fltlid         
-00013fb6  __mspabi_fltulf         
-00011b16  __mspabi_mpyd           
-00013250  __mspabi_mpyf           
-00014170  __mspabi_mpyi_f5hw      
-00014108  __mspabi_mpyl_f5hw      
-00013fe8  __mspabi_negd           
-00014070  __mspabi_remi           
-0001415a  __mspabi_remu           
-00014254  __mspabi_slli           
-000141d0  __mspabi_slll           
-00013dfc  __mspabi_slll_1         
-00013dd8  __mspabi_slll_10        
-00013dd4  __mspabi_slll_11        
-00013dd0  __mspabi_slll_12        
-00013dcc  __mspabi_slll_13        
-00013dc8  __mspabi_slll_14        
-00013dc4  __mspabi_slll_15        
-00013df8  __mspabi_slll_2         
-00013df4  __mspabi_slll_3         
-00013df0  __mspabi_slll_4         
-00013dec  __mspabi_slll_5         
-00013de8  __mspabi_slll_6         
-00013de4  __mspabi_slll_7         
-00013de0  __mspabi_slll_8         
-00013ddc  __mspabi_slll_9         
-0001424a  __mspabi_srai           
-000141c0  __mspabi_sral           
-00013dbe  __mspabi_sral_1         
-00013d9a  __mspabi_sral_10        
-00013d96  __mspabi_sral_11        
-00013d92  __mspabi_sral_12        
-00013d8e  __mspabi_sral_13        
-00013d8a  __mspabi_sral_14        
-00013d86  __mspabi_sral_15        
-00013dba  __mspabi_sral_2         
-00013db6  __mspabi_sral_3         
-00013db2  __mspabi_sral_4         
-00013dae  __mspabi_sral_5         
-00013daa  __mspabi_sral_6         
-00013da6  __mspabi_sral_7         
-00013da2  __mspabi_sral_8         
-00013d9e  __mspabi_sral_9         
-0001425e  __mspabi_srli           
-000141e0  __mspabi_srll           
-00013e3a  __mspabi_srll_1         
-00013e16  __mspabi_srll_10        
-00013e12  __mspabi_srll_11        
-00013e0e  __mspabi_srll_12        
-00013e0a  __mspabi_srll_13        
-00013e06  __mspabi_srll_14        
-00013e02  __mspabi_srll_15        
-00013e36  __mspabi_srll_2         
-00013e32  __mspabi_srll_3         
-00013e2e  __mspabi_srll_4         
-00013e2a  __mspabi_srll_5         
-00013e26  __mspabi_srll_6         
-00013e22  __mspabi_srll_7         
-00013e1e  __mspabi_srll_8         
-00013e1a  __mspabi_srll_9         
-00013e40  __mspabi_srlll          
-00013f52  __mspabi_subd           
-00012b3e  __mspabi_subf           
-00013846  _auto_init_hold_wdt     
+000118ca  __mspabi_addd           
+00012d9c  __mspabi_addf           
+000131ec  __mspabi_cmpd           
+00013e22  __mspabi_cmpf           
+000136d6  __mspabi_cvtdf          
+00013b52  __mspabi_cvtfd          
+000122dc  __mspabi_divd           
+000141dc  __mspabi_divi           
+000142c6  __mspabi_divu           
+00013aec  __mspabi_fixdli         
+00013dd6  __mspabi_fixful         
+000143a0  __mspabi_fltid          
+00014054  __mspabi_fltif          
+00013642  __mspabi_fltlid         
+00014122  __mspabi_fltulf         
+00011ba2  __mspabi_mpyd           
+0001337c  __mspabi_mpyf           
+000142dc  __mspabi_mpyi_f5hw      
+00014274  __mspabi_mpyl_f5hw      
+00014154  __mspabi_negd           
+000141dc  __mspabi_remi           
+000142c6  __mspabi_remu           
+000143c0  __mspabi_slli           
+0001433c  __mspabi_slll           
+00013f68  __mspabi_slll_1         
+00013f44  __mspabi_slll_10        
+00013f40  __mspabi_slll_11        
+00013f3c  __mspabi_slll_12        
+00013f38  __mspabi_slll_13        
+00013f34  __mspabi_slll_14        
+00013f30  __mspabi_slll_15        
+00013f64  __mspabi_slll_2         
+00013f60  __mspabi_slll_3         
+00013f5c  __mspabi_slll_4         
+00013f58  __mspabi_slll_5         
+00013f54  __mspabi_slll_6         
+00013f50  __mspabi_slll_7         
+00013f4c  __mspabi_slll_8         
+00013f48  __mspabi_slll_9         
+000143b6  __mspabi_srai           
+0001432c  __mspabi_sral           
+00013f2a  __mspabi_sral_1         
+00013f06  __mspabi_sral_10        
+00013f02  __mspabi_sral_11        
+00013efe  __mspabi_sral_12        
+00013efa  __mspabi_sral_13        
+00013ef6  __mspabi_sral_14        
+00013ef2  __mspabi_sral_15        
+00013f26  __mspabi_sral_2         
+00013f22  __mspabi_sral_3         
+00013f1e  __mspabi_sral_4         
+00013f1a  __mspabi_sral_5         
+00013f16  __mspabi_sral_6         
+00013f12  __mspabi_sral_7         
+00013f0e  __mspabi_sral_8         
+00013f0a  __mspabi_sral_9         
+000143ca  __mspabi_srli           
+0001434c  __mspabi_srll           
+00013fa6  __mspabi_srll_1         
+00013f82  __mspabi_srll_10        
+00013f7e  __mspabi_srll_11        
+00013f7a  __mspabi_srll_12        
+00013f76  __mspabi_srll_13        
+00013f72  __mspabi_srll_14        
+00013f6e  __mspabi_srll_15        
+00013fa2  __mspabi_srll_2         
+00013f9e  __mspabi_srll_3         
+00013f9a  __mspabi_srll_4         
+00013f96  __mspabi_srll_5         
+00013f92  __mspabi_srll_6         
+00013f8e  __mspabi_srll_7         
+00013f8a  __mspabi_srll_8         
+00013f86  __mspabi_srll_9         
+00013fac  __mspabi_srlll          
+000140be  __mspabi_subd           
+00012d96  __mspabi_subf           
+000139b2  _auto_init_hold_wdt     
 000044d4  _c_int00_noargs_noexit  
-0000299a  _lock                   
-00014276  _nop                    
+000028b2  _lock                   
+000143e2  _nop                    
 0000fffe  _reset_vector           
 00004360  _stack                  
-0001426e  _system_pre_init        
-0000299e  _unlock                 
-00014272  abort                   
-00014240  abs                     
+000143da  _system_pre_init        
+000028b6  _unlock                 
+000143de  abort                   
+000143ac  abs                     
 00002400  array_1                 
-00002728  array_2                 
 ffffffff  binit                   
-000141fe  cos                     
-00002982  eightCCW                
-0000298a  eightCW                 
-00013f1e  feraiseexcept           
-00010f44  fmod                    
-00002966  function                
-00012d9a  get_Quadrant            
+0001436a  cos                     
+0000289a  eightCCW                
+000028a2  eightCW                 
+0001408a  feraiseexcept           
+000112cc  fmod                    
+0000287e  function                
+00012ec6  get_Quadrant            
 00010452  get_circle_xy           
-00013bc8  itoa                    
+00013d34  itoa                    
 00010bf8  main                    
-0001419a  memcpy                  
-00002970  motor_Left              
-00002978  motor_Right             
-00013f84  raise                   
-00014016  reverse                 
-00013198  set_correction          
-00013e7a  signal                  
-0001420c  sin                     
-00012472  sqrt                    
-00002968  startPoint_x            
-0000296c  startPoint_y            
-00002818  str_P_r                 
-0000281c  str_P_x1                
-00002820  str_P_x2                
-00002824  str_P_y1                
-00002828  str_P_y2                
-0001421a  strlen                  
-000029a5  switchFlag              
+00014306  memcpy                  
+00002888  motor_Left              
+00002890  motor_Right             
+00002728  nextPoint_x             
+0000272c  nextPoint_y             
+00013940  next_Direction          
+000140f0  raise                   
+00014182  reverse                 
+000132c4  set_correction          
+00013fe6  signal                  
+00014378  sin                     
+000124fe  sqrt                    
+00002880  startPoint_x            
+00002884  startPoint_y            
+00002730  str_P_r                 
+00002734  str_P_x1                
+00002738  str_P_x2                
+0000273c  str_P_y1                
+00002740  str_P_y2                
+00014386  strlen                  
+000028bd  switchFlag              
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
@@ -2047,39 +2051,40 @@ address   name
 000023fe  USBIEPBCTY_7            
 000023ff  USBIEPSIZXY_7           
 00002400  array_1                 
-00002728  array_2                 
-00002818  str_P_r                 
-0000281c  str_P_x1                
-00002820  str_P_x2                
-00002824  str_P_y1                
-00002828  str_P_y2                
-000028dc  _Denorm                 
-000028ec  _Eps                    
-000028fc  _Hugeval                
-0000290c  _Inf                    
-0000291c  _Nan                    
-0000292c  _Snan                   
-0000293c  _Rteps                  
-0000294c  _Xbig                   
-00002954  _Zero                   
-0000295c  P_x1                    
-0000295e  P_y1                    
-00002960  P_x2                    
-00002962  P_y2                    
-00002964  P_r                     
-00002966  function                
-00002968  startPoint_x            
-0000296c  startPoint_y            
-00002970  motor_Left              
-00002978  motor_Right             
-00002982  eightCCW                
-0000298a  eightCW                 
-00002992  _Fenv                   
-00002996  _Tls_setup__Fenv        
-0000299a  _lock                   
-0000299e  _unlock                 
-000029a5  switchFlag              
-000029a6  _Errno                  
+00002728  nextPoint_x             
+0000272c  nextPoint_y             
+00002730  str_P_r                 
+00002734  str_P_x1                
+00002738  str_P_x2                
+0000273c  str_P_y1                
+00002740  str_P_y2                
+000027f4  _Denorm                 
+00002804  _Eps                    
+00002814  _Hugeval                
+00002824  _Inf                    
+00002834  _Nan                    
+00002844  _Snan                   
+00002854  _Rteps                  
+00002864  _Xbig                   
+0000286c  _Zero                   
+00002874  P_x1                    
+00002876  P_y1                    
+00002878  P_x2                    
+0000287a  P_y2                    
+0000287c  P_r                     
+0000287e  function                
+00002880  startPoint_x            
+00002884  startPoint_y            
+00002888  motor_Left              
+00002890  motor_Right             
+0000289a  eightCCW                
+000028a2  eightCW                 
+000028aa  _Fenv                   
+000028ae  _Tls_setup__Fenv        
+000028b2  _lock                   
+000028b6  _unlock                 
+000028bd  switchFlag              
+000028be  _Errno                  
 00004360  _stack                  
 00004400  TIMER0_A1_ISR           
 00004400  __STACK_END             
@@ -2117,142 +2122,143 @@ address   name
 00010452  get_circle_xy           
 00010836  _Sin                    
 00010bf8  main                    
-00010f44  fmod                    
-0001125e  Set_run_message         
-0001155a  __TI_frcmpyd            
-0001183e  __mspabi_addd           
-00011b16  __mspabi_mpyd           
-00011d98  Drawchar                
-00011ffe  __TI_frcaddd            
-00012250  __mspabi_divd           
-00012472  sqrt                    
-00012662  Show                    
-00012820  _Dscale                 
-000129be  KeyScan                 
-00012b3e  __mspabi_subf           
-00012b44  __mspabi_addf           
-00012c6e  Get_line_xy             
-00012d9a  get_Quadrant            
-00012ec4  _Dnorm                  
-00012fc4  Error_correction        
-000130c0  __mspabi_cmpd           
-00013198  set_correction          
-00013250  __mspabi_mpyf           
-00013306  Motor_line              
-000133ba  __TI_renormd            
-0001346c  LCDInit                 
-0001351c  Motor_Circle            
-000135ca  __mspabi_fltlid         
-0001365e  __mspabi_cvtdf          
-000136ea  CLK_Init                
-00013762  DrawcharS               
-000137d4  _Dunscale               
-00013846  _auto_init_hold_wdt     
-0001391a  DrawPoint               
-00013980  __mspabi_fixdli         
-000139e6  __mspabi_cvtfd          
-00013a4a  Work_PTP                
-00013aac  WrateC                  
-00013b0e  WrateD                  
-00013b70  MCU_Init                
-00013bc8  itoa                    
-00013c1c  SetVcoreUp              
-00013c6a  __mspabi_fixful         
-00013cb6  __mspabi_cmpf           
-00013d00  Clear                   
-00013d48  Converse                
-00013d86  __mspabi_sral_15        
-00013d8a  __mspabi_sral_14        
-00013d8e  __mspabi_sral_13        
-00013d92  __mspabi_sral_12        
-00013d96  __mspabi_sral_11        
-00013d9a  __mspabi_sral_10        
-00013d9e  __mspabi_sral_9         
-00013da2  __mspabi_sral_8         
-00013da6  __mspabi_sral_7         
-00013daa  __mspabi_sral_6         
-00013dae  __mspabi_sral_5         
-00013db2  __mspabi_sral_4         
-00013db6  __mspabi_sral_3         
-00013dba  __mspabi_sral_2         
-00013dbe  __mspabi_sral_1         
-00013dc4  __mspabi_slll_15        
-00013dc8  __mspabi_slll_14        
-00013dcc  __mspabi_slll_13        
-00013dd0  __mspabi_slll_12        
-00013dd4  __mspabi_slll_11        
-00013dd8  __mspabi_slll_10        
-00013ddc  __mspabi_slll_9         
-00013de0  __mspabi_slll_8         
-00013de4  __mspabi_slll_7         
-00013de8  __mspabi_slll_6         
-00013dec  __mspabi_slll_5         
-00013df0  __mspabi_slll_4         
-00013df4  __mspabi_slll_3         
-00013df8  __mspabi_slll_2         
-00013dfc  __mspabi_slll_1         
-00013e02  __mspabi_srll_15        
-00013e06  __mspabi_srll_14        
-00013e0a  __mspabi_srll_13        
-00013e0e  __mspabi_srll_12        
-00013e12  __mspabi_srll_11        
-00013e16  __mspabi_srll_10        
-00013e1a  __mspabi_srll_9         
-00013e1e  __mspabi_srll_8         
-00013e22  __mspabi_srll_7         
-00013e26  __mspabi_srll_6         
-00013e2a  __mspabi_srll_5         
-00013e2e  __mspabi_srll_4         
-00013e32  __mspabi_srll_3         
-00013e36  __mspabi_srll_2         
-00013e3a  __mspabi_srll_1         
-00013e40  __mspabi_srlll          
-00013e7a  signal                  
-00013eb2  _Feraise                
-00013ee8  __mspabi_fltif          
-00013f1e  feraiseexcept           
-00013f52  __mspabi_subd           
-00013f84  raise                   
-00013fb6  __mspabi_fltulf         
-00013fe8  __mspabi_negd           
-00014016  reverse                 
-00014044  LCD_setXY               
-00014070  __mspabi_divi           
-00014070  __mspabi_remi           
-0001409c  KeyPort_Init            
-000140c0  Motor_Init              
-000140e4  __TI_zero_init          
-00014108  __mspabi_mpyl_f5hw      
-0001412a  Motor1_IO_Out           
-00014142  Motor2_IO_Out           
-0001415a  __mspabi_divu           
-0001415a  __mspabi_remu           
-00014170  __mspabi_mpyi_f5hw      
-00014186  LCDWrite                
-0001419a  memcpy                  
-000141ae  __TI_decompress_none    
-000141c0  __mspabi_sral           
-000141d0  __mspabi_slll           
-000141e0  __mspabi_srll           
-000141f0  Timer0_Init             
-000141fe  cos                     
-0001420c  sin                     
-0001421a  strlen                  
-00014228  LedInit                 
-00014234  __mspabi_fltid          
-00014240  abs                     
-0001424a  __mspabi_srai           
-00014254  __mspabi_slli           
-0001425e  __mspabi_srli           
-00014268  __TI_decompress_rle24   
-0001426e  _system_pre_init        
-00014272  C$$EXIT                 
-00014272  abort                   
-00014276  _nop                    
+00010f6c  Set_run_message         
+000112cc  fmod                    
+000115e6  __TI_frcmpyd            
+000118ca  __mspabi_addd           
+00011ba2  __mspabi_mpyd           
+00011e24  Drawchar                
+0001208a  __TI_frcaddd            
+000122dc  __mspabi_divd           
+000124fe  sqrt                    
+000126ee  Set_Next_Point          
+000128ba  Show                    
+00012a78  _Dscale                 
+00012c16  KeyScan                 
+00012d96  __mspabi_subf           
+00012d9c  __mspabi_addf           
+00012ec6  get_Quadrant            
+00012ff0  _Dnorm                  
+000130f0  Error_correction        
+000131ec  __mspabi_cmpd           
+000132c4  set_correction          
+0001337c  __mspabi_mpyf           
+00013432  __TI_renormd            
+000134e4  LCDInit                 
+00013594  Motor_Circle            
+00013642  __mspabi_fltlid         
+000136d6  __mspabi_cvtdf          
+00013762  Motor_black             
+000137e4  CLK_Init                
+0001385c  DrawcharS               
+000138ce  _Dunscale               
+00013940  next_Direction          
+000139b2  _auto_init_hold_wdt     
+00013a86  DrawPoint               
+00013aec  __mspabi_fixdli         
+00013b52  __mspabi_cvtfd          
+00013bb6  Work_PTP                
+00013c18  WrateC                  
+00013c7a  WrateD                  
+00013cdc  MCU_Init                
+00013d34  itoa                    
+00013d88  SetVcoreUp              
+00013dd6  __mspabi_fixful         
+00013e22  __mspabi_cmpf           
+00013e6c  Clear                   
+00013eb4  Converse                
+00013ef2  __mspabi_sral_15        
+00013ef6  __mspabi_sral_14        
+00013efa  __mspabi_sral_13        
+00013efe  __mspabi_sral_12        
+00013f02  __mspabi_sral_11        
+00013f06  __mspabi_sral_10        
+00013f0a  __mspabi_sral_9         
+00013f0e  __mspabi_sral_8         
+00013f12  __mspabi_sral_7         
+00013f16  __mspabi_sral_6         
+00013f1a  __mspabi_sral_5         
+00013f1e  __mspabi_sral_4         
+00013f22  __mspabi_sral_3         
+00013f26  __mspabi_sral_2         
+00013f2a  __mspabi_sral_1         
+00013f30  __mspabi_slll_15        
+00013f34  __mspabi_slll_14        
+00013f38  __mspabi_slll_13        
+00013f3c  __mspabi_slll_12        
+00013f40  __mspabi_slll_11        
+00013f44  __mspabi_slll_10        
+00013f48  __mspabi_slll_9         
+00013f4c  __mspabi_slll_8         
+00013f50  __mspabi_slll_7         
+00013f54  __mspabi_slll_6         
+00013f58  __mspabi_slll_5         
+00013f5c  __mspabi_slll_4         
+00013f60  __mspabi_slll_3         
+00013f64  __mspabi_slll_2         
+00013f68  __mspabi_slll_1         
+00013f6e  __mspabi_srll_15        
+00013f72  __mspabi_srll_14        
+00013f76  __mspabi_srll_13        
+00013f7a  __mspabi_srll_12        
+00013f7e  __mspabi_srll_11        
+00013f82  __mspabi_srll_10        
+00013f86  __mspabi_srll_9         
+00013f8a  __mspabi_srll_8         
+00013f8e  __mspabi_srll_7         
+00013f92  __mspabi_srll_6         
+00013f96  __mspabi_srll_5         
+00013f9a  __mspabi_srll_4         
+00013f9e  __mspabi_srll_3         
+00013fa2  __mspabi_srll_2         
+00013fa6  __mspabi_srll_1         
+00013fac  __mspabi_srlll          
+00013fe6  signal                  
+0001401e  _Feraise                
+00014054  __mspabi_fltif          
+0001408a  feraiseexcept           
+000140be  __mspabi_subd           
+000140f0  raise                   
+00014122  __mspabi_fltulf         
+00014154  __mspabi_negd           
+00014182  reverse                 
+000141b0  LCD_setXY               
+000141dc  __mspabi_divi           
+000141dc  __mspabi_remi           
+00014208  KeyPort_Init            
+0001422c  Motor_Init              
+00014250  __TI_zero_init          
+00014274  __mspabi_mpyl_f5hw      
+00014296  Motor1_IO_Out           
+000142ae  Motor2_IO_Out           
+000142c6  __mspabi_divu           
+000142c6  __mspabi_remu           
+000142dc  __mspabi_mpyi_f5hw      
+000142f2  LCDWrite                
+00014306  memcpy                  
+0001431a  __TI_decompress_none    
+0001432c  __mspabi_sral           
+0001433c  __mspabi_slll           
+0001434c  __mspabi_srll           
+0001435c  Timer0_Init             
+0001436a  cos                     
+00014378  sin                     
+00014386  strlen                  
+00014394  LedInit                 
+000143a0  __mspabi_fltid          
+000143ac  abs                     
+000143b6  __mspabi_srai           
+000143c0  __mspabi_slli           
+000143ca  __mspabi_srli           
+000143d4  __TI_decompress_rle24   
+000143da  _system_pre_init        
+000143de  C$$EXIT                 
+000143de  abort                   
+000143e2  _nop                    
 ffffffff  __binit__               
 ffffffff  __c_args__              
 ffffffff  binit                   
 UNDEFED   __TI_INITARRAY_Base     
 UNDEFED   __TI_INITARRAY_Limit    
 
-[957 symbols]
+[959 symbols]

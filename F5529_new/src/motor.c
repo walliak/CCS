@@ -18,11 +18,11 @@ unsigned char  fourCCW[4]={0x01,0x08,0x04,0x02};
 unsigned char  fourCW[4]={0x02,0x04,0x08,0x01};
 
 //定点、直线、圆起始坐标
-int P_x1=55,P_y1=65,P_x2=80,P_y2=60,P_r=25;
+int P_x1=55,P_y1=80,P_x2=55,P_y2=20,P_r=25;
 char function =0;
 
 //循迹部分，起始坐标
-float startPoint_x = 50,startPoint_y = 50;
+float startPoint_x = 30,startPoint_y = 80;
 float nextPoint_x,nextPoint_y;
 
 // 左,右电机初始化
@@ -35,6 +35,48 @@ static 	Quadrant quadrant = FIR;
 
 
 /*******************************************函数定义*****************************************************/
+void Set_Next_Point(enum Direction direction)
+{
+	float up_dis=-0.2,down_dis=0.2,right_dis=0.2,del_1=0.05,del_2=-0.5;
+	switch(direction)
+	{
+		case UP:	//
+			nextPoint_x = startPoint_x;
+			nextPoint_y = startPoint_y+up_dis;
+			break;
+
+		case DOWN:	//
+			nextPoint_x = startPoint_x;
+			nextPoint_y = startPoint_y+down_dis;
+			break;
+
+		case RIGHT:
+			nextPoint_x = startPoint_x+right_dis;
+			nextPoint_y = startPoint_y;
+			break;
+
+		case UP_RIGHT:
+			nextPoint_x = startPoint_x+right_dis;
+			nextPoint_y = startPoint_y+up_dis;
+			break;
+
+		case DOWN_RIGHT:
+			nextPoint_x = startPoint_x+right_dis;
+			nextPoint_y = startPoint_y+down_dis;
+			break;
+
+		case ALL: //
+			nextPoint_x = startPoint_x;
+			nextPoint_y = startPoint_y+up_dis;
+			break;
+
+		case LIGHT:	//
+			nextPoint_x = startPoint_x+del_1;
+			nextPoint_y = startPoint_y+del_2;
+			break;
+	}
+}
+
 void Timer0_Init()
 {
 	 TA0CCR0 =INITSPEED;
@@ -101,26 +143,26 @@ void Set_run_message(float x1, float y1, float x2, float y2)
 	if(a1>a2)//左边线缩短
 	{
 		motor_Left.status =TRUE;
-		motor_Left.number = (long)((a1-a2)*4096/(CIRCUMFERENCE_LEFT));
+		motor_Left.number = (long)((a1-a2)*4096*1.125/(CIRCUMFERENCE_LEFT));
 		motor_Left.dir    =  FORWAED;
 	}
 	else    	 //左边线伸长
 	{
 		motor_Left.status =TRUE;
-		motor_Left.number =(long)((a2-a1)*4096/(CIRCUMFERENCE_LEFT));
+		motor_Left.number =(long)((a2-a1)*4096*1.125/(CIRCUMFERENCE_LEFT));
 		motor_Left.dir    = REVERSE;
 	}
 
 	if(b1>b2) //右边线缩短
 	{
 		motor_Right.status = TRUE;
-		motor_Right.number = (long)((b1-b2)*4096/(CIRCUMFERENCE_RIGHT));
+		motor_Right.number = (long)((b1-b2)*4096*1.065/(CIRCUMFERENCE_RIGHT));
 		motor_Right.dir    =  FORWAED;
 	}
 	else	 	  //右边线伸长
 	{
 		motor_Right.status = TRUE;
-		motor_Right.number = (long)((b2-b1)*4096/(CIRCUMFERENCE_RIGHT));
+		motor_Right.number = (long)((b2-b1)*4096*1.065/(CIRCUMFERENCE_RIGHT));
 		motor_Right.dir    =  REVERSE ;
 	}
 	if(function==3)
@@ -333,55 +375,15 @@ enum Direction  next_Direction()
 	return LIGHT;
 }
 
-void Set_Next_Point(enum Direction direction)
-{
-	float up_dis=0.2,down_dis=0.1,right_dis=0.2,bigdel=0.5;
-	switch(direction)
-	{
-		case UP:	//
-			nextPoint_x = startPoint_x;
-			nextPoint_y = startPoint_y+up_dis;
-			break;
-
-		case DOWN:	//
-			nextPoint_x = startPoint_x;
-			nextPoint_y = startPoint_y+down_dis;
-			break;
-
-		case RIGHT:
-			nextPoint_x = startPoint_x+right_dis;
-			nextPoint_y = startPoint_y;
-			break;
-
-		case UP_RIGHT:
-			nextPoint_x = startPoint_x+right_dis;
-			nextPoint_y = startPoint_y+up_dis;
-			break;
-
-		case DOWN_RIGHT:
-			nextPoint_x = startPoint_x+right_dis;
-			nextPoint_y = startPoint_y+down_dis;
-			break;
-
-		case ALL: //
-			nextPoint_x = startPoint_x+right_dis;
-			nextPoint_y = startPoint_y;
-			break;
-
-		case LIGHT:	//
-			nextPoint_x = startPoint_x+bigdel;
-			nextPoint_y = startPoint_y+bigdel;
-			break;
-	}
-}
-
 void Motor_black()
 {
 	char stopFlag=0;
+	int number = 0;
 	enum Direction working;
-	while(stopFlag<=2)
+	while(stopFlag<=25)
 	{
 		working = next_Direction();
+		number++;
 		if(working == LIGHT)
 		{
 			stopFlag++;

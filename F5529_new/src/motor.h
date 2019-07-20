@@ -96,6 +96,8 @@ void Work_PTP(float x1, float y1, float x2, float y2);
 void set_correction(float Left_Put,float Left_Close,float Right_Put,float Right_Close);
 void get_Quadrant( float x2, float y2);
 void Error_correction(Quadrant quadrant);
+void Motor_black();
+
 #endif /* SRC_MOTOR_H_ */
 
 
