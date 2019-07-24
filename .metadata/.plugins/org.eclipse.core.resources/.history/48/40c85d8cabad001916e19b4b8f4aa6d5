@@ -1,0 +1,28 @@
+/*
+ * motor.h
+ *
+ *  Created on: 2019Äê7ÔÂ23ÈÕ
+ *      Author: Think
+ */
+
+#ifndef SRC_MOTOR_H_
+#define SRC_MOTOR_H_
+
+	void MotorPort_Init();
+	void PWM_Init(void);
+
+	void L1_Forward(void);
+	void L1_Backward(void);
+	void L1_Stop(void);
+	void L2_Forward(void);
+	void L2_Backward(void);
+	void L2_Stop(void);
+	void R1_Forward(void);
+	void R1_Backward(void);
+	void R1_Stop(void);
+	void R2_Forward(void);
+	void R2_Backward(void);
+	void R2_Stop(void);
+
+
+#endif /* SRC_MOTOR_H_ */

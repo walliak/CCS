@@ -234,7 +234,7 @@ __interrupt void TIMER0_A1_ISR(void)
 				motor_Right.status = FALSE;
 
 	if( !motor_Left.status && !motor_Right.status )
-		LPM0_EXIT;		//退出低功耗
+	LPM0_EXIT;		//退出低功耗
 
 }
 

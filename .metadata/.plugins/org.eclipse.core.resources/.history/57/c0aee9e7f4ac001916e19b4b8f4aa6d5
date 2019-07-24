@@ -1,0 +1,14 @@
+/*
+ * motor.c
+ *
+ *  Created on: 2019Äê7ÔÂ23ÈÕ
+ *      Author: Think
+ */
+
+#include "MSP430F5529.h"
+void MotorPort_Init()
+{
+	P2DIR |=(BIT0+BIT2+BIT4);
+}
+
+

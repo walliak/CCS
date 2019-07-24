@@ -1,0 +1,151 @@
+/*
+ * motor.c
+ *
+ *  Created on: 2019年7月23日
+ *      Author: Think
+ */
+
+#include "MSP430F5529.h"
+
+/*************************************
+ *				PWM输出引脚设置
+ * P1.2 ->TA0.1
+ * P1.3 ->TA0.2
+ * P1.4 ->TA0.3
+ * P1.5 ->TA0.4
+ *
+ * 				电机方向引脚设置
+ * P2.0 ->L1.IN1
+ * P2.2 ->L1.IN2
+ *
+ * P2.4 ->L2.IN1
+ * P2.5 ->L2.IN2
+ *
+ * P4.0 ->R1.IN1
+ * P4.1 ->R1.IN2
+ *
+ * P4.2 ->R2.IN1
+ * P4.3 ->R2.IN2
+ *****************************************/
+void MotorPort_Init()
+{
+	P1DIR |=(BIT2+BIT3+BIT4+BIT5);//定时器A0，P1.2,P1.3,P1.4,P1.5复用输出
+	P1SEL |=(BIT2+BIT3+BIT4+BIT5);
+
+	P2DIR |=(BIT0+BIT2+BIT4+BIT5);
+	P4DIR |=(BIT0+BIT1+BIT2+BIT3);
+}
+
+void PWM_Init(void)
+{
+	TA0CTL = TASSEL__SMCLK+MC__UP+TACLR;
+
+	TA0CCR0 = 1250;
+
+	TA0CCTL1=OUTMOD_7;
+	TA0CCR1 = 1250*3/4;
+
+	TA0CCTL2=OUTMOD_7;
+	TA0CCR2 = 1250*3/4;
+
+	TA0CCTL3=OUTMOD_7;
+	TA0CCR3= 1250*3/4;
+
+	TA0CCTL4=OUTMOD_7;
+	TA0CCR4 = 1250*3/4;
+}
+
+/******************************************
+ * 			电机方向控制
+ * xx_Forward  电机正转	前进
+ * xx_Backward 电机反转	后退
+ * xx_stop	      电机停止
+ *
+ ******************************************/
+void L1_Forward(void)
+{
+	P2OUT |=BIT0;
+	P2OUT &=~BIT2;
+}
+
+void L1_Backward(void)
+{
+	P2OUT &=~BIT0;
+	P2OUT |=BIT2;
+}
+
+void L1_Stop(void)
+{
+	P2OUT &=~BIT0;
+	P2OUT &=~BIT2;
+}
+
+void L2_Forward(void)
+{
+	P2OUT |=BIT4;
+	P2OUT &=~BIT5;
+}
+
+void L2_Backward(void)
+{
+	P2OUT &=~BIT4;
+	P2OUT |=BIT5;
+}
+
+void L2_Stop(void)
+{
+	P2OUT &=~BIT4;
+	P2OUT &=~BIT5;
+}
+
+void R1_Forward(void)
+{
+	P4OUT |=BIT0;
+	P4OUT &=~BIT1;
+}
+
+void R1_Backward(void)
+{
+	P4OUT &=~BIT0;
+	P4OUT |=BIT1;
+}
+
+void R1_Stop(void)
+{
+	P4OUT &=~BIT0;
+	P4OUT &=~BIT1;
+}
+
+void R2_Forward(void)
+{
+	P4OUT |=BIT2;
+	P4OUT &=~BIT3;
+}
+
+void R2_Backward(void)
+{
+	P4OUT &=~BIT2;
+	P4OUT |=BIT3;
+}
+
+void R2_Stop(void)
+{
+	P4OUT &=~BIT2;
+	P4OUT &=~BIT3;
+}
+
+//void PWM_Init(void)//方波启动
+//{
+//  TA1CTL = TASSEL_2 + MC_3 + TACLR;         // SMCLK, 增减计数, clear TAR
+//  TA1CCR0 = 128*2;                            // PWM Period/2
+//  TA1CCTL1 = OUTMOD_6;                      // CCR1 toggle/set
+//  TA1CCR1 = 64;                             // CCR1 PWM duty cycle
+//  P2DIR |= BIT0;                       		// P2.0 and P2.1 output    P1.2
+//  P2SEL |= BIT0;                       		// P2.0 and P2.1 options select
+//
+////  __bis_SR_register(LPM0_bits);             // Enter LPM0
+////  __no_operation();                         // For debugger
+//
+//}
+
+
