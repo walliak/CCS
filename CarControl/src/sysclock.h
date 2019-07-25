@@ -7,7 +7,7 @@
 
 #ifndef SRC_SYSCLOCK_H_
 #define SRC_SYSCLOCK_H_
-
+#include "MSP430F5529.h"
 //延时函数的定义，使用了系统自带的精确延时
 #define CPU_CLOCK       25000000		//时钟大于1M
 #define Delay_us(us)    __delay_cycles(CPU_CLOCK/1000000*(us))

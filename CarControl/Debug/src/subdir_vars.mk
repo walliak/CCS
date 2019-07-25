@@ -5,6 +5,7 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../src/CompositeChars.c \
+../src/blacksearch.c \
 ../src/key.c \
 ../src/lcd.c \
 ../src/led.c \
@@ -13,6 +14,7 @@ C_SRCS += \
 
 OBJS += \
 ./src/CompositeChars.obj \
+./src/blacksearch.obj \
 ./src/key.obj \
 ./src/lcd.obj \
 ./src/led.obj \
@@ -21,6 +23,7 @@ OBJS += \
 
 C_DEPS += \
 ./src/CompositeChars.pp \
+./src/blacksearch.pp \
 ./src/key.pp \
 ./src/lcd.pp \
 ./src/led.pp \
@@ -29,6 +32,7 @@ C_DEPS += \
 
 C_DEPS__QUOTED += \
 "src\CompositeChars.pp" \
+"src\blacksearch.pp" \
 "src\key.pp" \
 "src\lcd.pp" \
 "src\led.pp" \
@@ -37,6 +41,7 @@ C_DEPS__QUOTED += \
 
 OBJS__QUOTED += \
 "src\CompositeChars.obj" \
+"src\blacksearch.obj" \
 "src\key.obj" \
 "src\lcd.obj" \
 "src\led.obj" \
@@ -45,6 +50,7 @@ OBJS__QUOTED += \
 
 C_SRCS__QUOTED += \
 "../src/CompositeChars.c" \
+"../src/blacksearch.c" \
 "../src/key.c" \
 "../src/lcd.c" \
 "../src/led.c" \

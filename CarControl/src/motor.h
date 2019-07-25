@@ -7,9 +7,12 @@
 
 #ifndef SRC_MOTOR_H_
 #define SRC_MOTOR_H_
+#include "MSP430F5529.h"
 #include "sysclock.h"
 #include "Math.h"
 #include "sysclock.h"
+
+extern int L_speed ,R_speed,Turn_time;
 	void PWM_Init(void);
 	void MotorPort_Init();
 
@@ -28,8 +31,10 @@
 
 	void SetMotorSpeed(char channel, int speed);			//设置速度
 	void Car_Forward(int speed,int time);					//小车前进
+	void Car_Backward(int speed,int time);					//小车后退
+	void Car_Turn(int time);
 	void Car_Left(int speed,int time);						//小车左转
-	void Car_Right(int speed,int time);					//小车右转
+	void Car_Right(int speed,int time);						//小车右转
 	void Car_Spinleft(int speed,int time);					//小车左旋转
 	void Car_Spinright(int speed,int time);					//小车右旋转
 	void Car_Brake(void);

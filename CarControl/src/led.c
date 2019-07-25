@@ -6,7 +6,6 @@
  */
 #include "MSP430F5529.h"
 
-
 void LedInit(void)
 {
 	P1DIR |= BIT0;

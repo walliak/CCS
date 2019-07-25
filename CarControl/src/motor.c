@@ -5,10 +5,10 @@
  *      Author: Think
  */
 
-#include "MSP430F5529.h"
+
 #include "motor.h"
 
-
+int L_speed = 15,R_speed = 15,Turn_time = 10;
 void PWM_Init(void)
 {
 	TA0CTL = TASSEL__SMCLK+MC__UP+TACLR;
@@ -141,12 +141,12 @@ void R2_Stop(void)
 
 void L1_SetPWM(int sPWM)
 {
-	TA0CCR1 = sPWM;
+	TA0CCR1 = (int)(sPWM*0.99);
 }
 
 void L2_SetPWM(int sPWM)
 {
-	TA0CCR2 = sPWM;
+	TA0CCR2 =(int)(sPWM*1.024) ;
 }
 
 void R1_SetPWM(int sPWM)
@@ -175,9 +175,6 @@ void R2_SetPWM(int sPWM)
  * void Car_Brake(void)
  *********************************************************************************/
 
-
-
-
 void SetMotorSpeed(char channel, int speed)			//设置速度
 {
 	int sPWM;
@@ -191,7 +188,7 @@ void SetMotorSpeed(char channel, int speed)			//设置速度
 			speed = -100;
 		}
 
-	sPWM = fabs(speed)*15;
+	sPWM = 900+fabs(speed)*6;
 	switch(channel)
 	{
 		case 0://R1,R2
@@ -230,6 +227,15 @@ void Car_Forward(int speed,int time)				//小车前进
 	SetMotorSpeed(1,speed);
 	SetMotorSpeed(0,speed);
 	Mydelayms(time);
+	Car_Brake();
+}
+
+void Car_Turn(int time)	//小车转弯，可左右转
+{
+	SetMotorSpeed(1,L_speed);
+	SetMotorSpeed(0,R_speed);
+	Mydelayms(time);
+	Car_Brake();
 }
 
 void Car_Left(int speed,int time)					//小车左转
@@ -237,13 +243,14 @@ void Car_Left(int speed,int time)					//小车左转
 	SetMotorSpeed(1,0);
 	SetMotorSpeed(0,speed);
 	Mydelayms(time);
+	Car_Brake();
 }
-
 void Car_Right(int speed,int time)					//小车右转
 {
 	SetMotorSpeed(1,speed);
 	SetMotorSpeed(0,0);
 	Mydelayms(time);
+	Car_Brake();
 }
 
 void Car_Backward(int speed,int time)				//小车后退
@@ -251,6 +258,7 @@ void Car_Backward(int speed,int time)				//小车后退
 	SetMotorSpeed(1,-speed);
 	SetMotorSpeed(0,-speed);
 	Mydelayms(time);
+	Car_Brake();
 }
 
 void Car_Spinleft(int speed,int time)				//小车左旋转
@@ -258,6 +266,7 @@ void Car_Spinleft(int speed,int time)				//小车左旋转
 	SetMotorSpeed(1,speed);
 	SetMotorSpeed(0,-speed);
 	Mydelayms(time);
+	Car_Brake();
 }
 
 void Car_Spinright(int speed,int time)				//小车右旋转
@@ -265,6 +274,7 @@ void Car_Spinright(int speed,int time)				//小车右旋转
 	SetMotorSpeed(1,-speed);
 	SetMotorSpeed(0,speed);
 	Mydelayms(time);
+	Car_Brake();
 }
 
 void Car_Brake(void)

@@ -4,7 +4,7 @@
  *  Created on: 2019Äê7ÔÂ19ÈÕ
  *      Author: Think
  */
-#include "MSP430F5529.h"
+
 #include "sysclock.h"
 void SetVcoreUp (unsigned int level)
  {

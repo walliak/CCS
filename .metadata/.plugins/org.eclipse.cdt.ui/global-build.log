@@ -2,11 +2,6 @@
 **** Build of configuration Debug for project CarControl ****
 
 "D:\\CCS6.1.0.00104_win32\\CCS\\ccsv6\\utils\\bin\\gmake" -k all 
-'Building file: ../main.c'
-'Invoking: MSP430 Compiler'
-"D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/bin/cl430" -vmspx --abi=eabi --data_model=restricted --use_hw_mpy=F5 --include_path="D:/CCS6.1.0.00104_win32/CCS/ccsv6/ccs_base/msp430/include" --include_path="D:/CCS6.1.0.00104_win32/workspace/CarControl/src" --include_path="D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include" --advice:power="none" -g --define=__MSP430F5529__ --define=DEPRECATED --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU23 --silicon_errata=CPU40 --printf_support=minimal --preproc_with_compile --preproc_dependency="main.pp"  "../main.c"
-'Finished building: ../main.c'
-' '
 'Building file: ../src/motor.c'
 'Invoking: MSP430 Compiler'
 "D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/bin/cl430" -vmspx --abi=eabi --data_model=restricted --use_hw_mpy=F5 --include_path="D:/CCS6.1.0.00104_win32/CCS/ccsv6/ccs_base/msp430/include" --include_path="D:/CCS6.1.0.00104_win32/workspace/CarControl/src" --include_path="D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include" --advice:power="none" -g --define=__MSP430F5529__ --define=DEPRECATED --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU23 --silicon_errata=CPU40 --printf_support=minimal --preproc_with_compile --preproc_dependency="src/motor.pp" --obj_directory="src"  "../src/motor.c"
@@ -14,9 +9,16 @@
 ' '
 'Building target: CarControl.out'
 'Invoking: MSP430 Linker'
-"D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/bin/cl430" -vmspx --abi=eabi --data_model=restricted --use_hw_mpy=F5 --advice:power="none" -g --define=__MSP430F5529__ --define=DEPRECATED --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU23 --silicon_errata=CPU40 --printf_support=minimal -z -m"CarControl.map" --heap_size=160 --stack_size=160 --cinit_hold_wdt=on -i"D:/CCS6.1.0.00104_win32/CCS/ccsv6/ccs_base/msp430/include" -i"D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/lib" -i"D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include" -i"D:/CCS6.1.0.00104_win32/CCS/ccsv6/ccs_base/msp430/lib/5xx_6xx_FRxx" --reread_libs --warn_sections --display_error_number --diag_wrap=off --xml_link_info="CarControl_linkInfo.xml" --use_hw_mpy=F5 --rom_model -o "CarControl.out" "./main.obj" "./src/CompositeChars.obj" "./src/key.obj" "./src/lcd.obj" "./src/led.obj" "./src/motor.obj" "./src/sysclock.obj" "../lnk_msp430f5529.cmd"  -l"libmath.a" -l"libc.a" 
+"D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/bin/cl430" -vmspx --abi=eabi --data_model=restricted --use_hw_mpy=F5 --advice:power="none" -g --define=__MSP430F5529__ --define=DEPRECATED --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU23 --silicon_errata=CPU40 --printf_support=minimal -z -m"CarControl.map" --heap_size=160 --stack_size=160 --cinit_hold_wdt=on -i"D:/CCS6.1.0.00104_win32/CCS/ccsv6/ccs_base/msp430/include" -i"D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/lib" -i"D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include" -i"D:/CCS6.1.0.00104_win32/CCS/ccsv6/ccs_base/msp430/lib/5xx_6xx_FRxx" --reread_libs --warn_sections --display_error_number --diag_wrap=off --xml_link_info="CarControl_linkInfo.xml" --use_hw_mpy=F5 --rom_model -o "CarControl.out" "./main.obj" "./src/CompositeChars.obj" "./src/blacksearch.obj" "./src/key.obj" "./src/lcd.obj" "./src/led.obj" "./src/motor.obj" "./src/sysclock.obj" "../lnk_msp430f5529.cmd"  -l"libmath.a" -l"libc.a" 
 <Linking>
 'Finished building target: CarControl.out'
 ' '
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project CarControl ****
+
+"D:\\CCS6.1.0.00104_win32\\CCS\\ccsv6\\utils\\bin\\gmake" -k all 
+gmake: Nothing to be done for `all'.
 
 **** Build Finished ****

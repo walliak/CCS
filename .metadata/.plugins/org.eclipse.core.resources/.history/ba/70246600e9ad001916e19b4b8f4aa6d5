@@ -1,0 +1,31 @@
+/*
+ * blacksearch.c
+ *
+ *  Created on: 2019Äê7ÔÂ24ÈÕ
+ *      Author: Think
+ */
+#include "blacksearch"
+
+/**************************
+ *
+ **************************/
+void SearchPort_Init()
+{
+	P8DIR &=~(BIT1+BIT2);
+	P8REN |=(BIT1+BIT2) ;
+	P8OUT |=(BIT1+BIT2);
+}
+
+void SearchBlack()
+{
+	switch(READ_ALL)
+	{
+		case(FLAG_LEFT):
+				Car_Left();
+		case(FLAG_RIGHT):
+				Car_Right();
+		default:
+				Car_Forward();
+	}
+}
+
