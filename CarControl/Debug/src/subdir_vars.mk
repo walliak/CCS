@@ -5,6 +5,8 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../src/CompositeChars.c \
+../src/HCSR04.c \
+../src/Metal.c \
 ../src/blacksearch.c \
 ../src/key.c \
 ../src/lcd.c \
@@ -14,6 +16,8 @@ C_SRCS += \
 
 OBJS += \
 ./src/CompositeChars.obj \
+./src/HCSR04.obj \
+./src/Metal.obj \
 ./src/blacksearch.obj \
 ./src/key.obj \
 ./src/lcd.obj \
@@ -23,6 +27,8 @@ OBJS += \
 
 C_DEPS += \
 ./src/CompositeChars.pp \
+./src/HCSR04.pp \
+./src/Metal.pp \
 ./src/blacksearch.pp \
 ./src/key.pp \
 ./src/lcd.pp \
@@ -32,6 +38,8 @@ C_DEPS += \
 
 C_DEPS__QUOTED += \
 "src\CompositeChars.pp" \
+"src\HCSR04.pp" \
+"src\Metal.pp" \
 "src\blacksearch.pp" \
 "src\key.pp" \
 "src\lcd.pp" \
@@ -41,6 +49,8 @@ C_DEPS__QUOTED += \
 
 OBJS__QUOTED += \
 "src\CompositeChars.obj" \
+"src\HCSR04.obj" \
+"src\Metal.obj" \
 "src\blacksearch.obj" \
 "src\key.obj" \
 "src\lcd.obj" \
@@ -50,6 +60,8 @@ OBJS__QUOTED += \
 
 C_SRCS__QUOTED += \
 "../src/CompositeChars.c" \
+"../src/HCSR04.c" \
+"../src/Metal.c" \
 "../src/blacksearch.c" \
 "../src/key.c" \
 "../src/lcd.c" \

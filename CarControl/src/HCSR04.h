@@ -1,0 +1,21 @@
+/*
+ * HCSR04.h
+ *
+ *  Created on: 2019Äê7ÔÂ25ÈÕ
+ *      Author: JOJO
+ */
+
+#ifndef SRC_HCSR04_H_
+#define SRC_HCSR04_H_
+
+#include "MSP430F5529.h"
+#include "sysclock.h"
+#include <lcd.h>
+#include <stdio.h>
+#include "motor.h"
+
+void pwm_catch_init();
+void Deal_Distance();
+
+
+#endif /* SRC_HCSR04_H_ */

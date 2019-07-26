@@ -9,6 +9,8 @@ CG_TOOL_ROOT := D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4
 ORDERED_OBJS += \
 "./main.obj" \
 "./src/CompositeChars.obj" \
+"./src/HCSR04.obj" \
+"./src/Metal.obj" \
 "./src/blacksearch.obj" \
 "./src/key.obj" \
 "./src/lcd.obj" \
@@ -156,8 +158,8 @@ CarControl.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)$(BIN_OUTPUTS__QUOTED)
-	-$(RM) "main.pp" "src\CompositeChars.pp" "src\blacksearch.pp" "src\key.pp" "src\lcd.pp" "src\led.pp" "src\motor.pp" "src\sysclock.pp" 
-	-$(RM) "main.obj" "src\CompositeChars.obj" "src\blacksearch.obj" "src\key.obj" "src\lcd.obj" "src\led.obj" "src\motor.obj" "src\sysclock.obj" 
+	-$(RM) "main.pp" "src\CompositeChars.pp" "src\HCSR04.pp" "src\Metal.pp" "src\blacksearch.pp" "src\key.pp" "src\lcd.pp" "src\led.pp" "src\motor.pp" "src\sysclock.pp" 
+	-$(RM) "main.obj" "src\CompositeChars.obj" "src\HCSR04.obj" "src\Metal.obj" "src\blacksearch.obj" "src\key.obj" "src\lcd.obj" "src\led.obj" "src\motor.obj" "src\sysclock.obj" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

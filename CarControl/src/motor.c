@@ -8,7 +8,7 @@
 
 #include "motor.h"
 
-int L_speed = 15,R_speed = 15,Turn_time = 10;
+int second = 0;
 void PWM_Init(void)
 {
 	TA0CTL = TASSEL__SMCLK+MC__UP+TACLR;
@@ -28,6 +28,23 @@ void PWM_Init(void)
 	TA0CCR4 = 1250;
 }
 
+#pragma vector=TIMER0_A0_VECTOR
+__interrupt void Timer0_A0 (void)
+{
+	TA0CCTL0 &=~TAIFG;
+	int times=0;
+	times++;
+	if(times<16667)
+	{
+		second++;
+	}
+	else
+	{
+		times = 0;
+	}
+
+}
+
 /***************************************************************************
  *				PWM输出引脚设置
  * P1.2 ->TA0.1
@@ -36,11 +53,11 @@ void PWM_Init(void)
  * P1.5 ->TA0.4
  *
  * 				电机方向引脚设置
- * P2.0 ->L1.IN1
- * P2.2 ->L1.IN2
+ * P3.0 ->L1.IN1
+ * P3.1 ->L1.IN2
  *
- * P2.4 ->L2.IN1
- * P2.5 ->L2.IN2
+ * P3.6 ->L2.IN1
+ * P2.7 ->L2.IN2
  *
  * P4.0 ->R1.IN2
  * P4.1 ->R1.IN1
@@ -53,7 +70,8 @@ void MotorPort_Init()
 	P1DIR |=(BIT2+BIT3+BIT4+BIT5);//定时器A0，P1.2,P1.3,P1.4,P1.5复用输出
 	P1SEL |=(BIT2+BIT3+BIT4+BIT5);
 
-	P2DIR |=(BIT0+BIT2+BIT4+BIT5);
+	P2DIR |=(BIT7);
+	P3DIR |=(BIT0+BIT1+BIT6);
 	P4DIR |=(BIT0+BIT1+BIT2+BIT3);
 }
 
@@ -69,38 +87,38 @@ void MotorPort_Init()
  *************************************************************************/
 void L1_Backward(void)
 {
-	P2OUT |=BIT0;
-	P2OUT &=~BIT2;
+	P3OUT |=BIT0;
+	P3OUT &=~BIT1;
 }
 
 void L1_Forward(void)
 {
-	P2OUT &=~BIT0;
-	P2OUT |=BIT2;
+	P3OUT &=~BIT0;
+	P3OUT |=BIT1;
 }
 
 void L1_Stop(void)
 {
-	P2OUT &=~BIT0;
-	P2OUT &=~BIT2;
+	P3OUT &=~BIT0;
+	P3OUT &=~BIT1;
 }
 
 void L2_Backward(void)
 {
-	P2OUT |=BIT4;
-	P2OUT &=~BIT5;
+	P3OUT |=BIT6;
+	P2OUT &=~BIT7;
 }
 
 void L2_Forward(void)
 {
-	P2OUT &=~BIT4;
-	P2OUT |=BIT5;
+	P3OUT &=~BIT6;
+	P2OUT |=BIT7;
 }
 
 void L2_Stop(void)
 {
-	P2OUT &=~BIT4;
-	P2OUT &=~BIT5;
+	P3OUT &=~BIT6;
+	P2OUT &=~BIT7;
 }
 
 void R1_Backward(void)
@@ -222,18 +240,18 @@ void SetMotorSpeed(char channel, int speed)			//设置速度
 	}
 }
 
-void Car_Forward(int speed,int time)				//小车前进
+void Car_Run(int L_speed, int R_speed,int time)	//小车转弯，可左右转
 {
-	SetMotorSpeed(1,speed);
-	SetMotorSpeed(0,speed);
+	SetMotorSpeed(1,L_speed);
+	SetMotorSpeed(0,R_speed);
 	Mydelayms(time);
 	Car_Brake();
 }
 
-void Car_Turn(int time)	//小车转弯，可左右转
+void Car_Forward(int speed,int time)				//小车前进
 {
-	SetMotorSpeed(1,L_speed);
-	SetMotorSpeed(0,R_speed);
+	SetMotorSpeed(1,speed);
+	SetMotorSpeed(0,speed);
 	Mydelayms(time);
 	Car_Brake();
 }
@@ -263,18 +281,20 @@ void Car_Backward(int speed,int time)				//小车后退
 
 void Car_Spinleft(int speed,int time)				//小车左旋转
 {
-	SetMotorSpeed(1,speed);
-	SetMotorSpeed(0,-speed);
-	Mydelayms(time);
-	Car_Brake();
-}
-
-void Car_Spinright(int speed,int time)				//小车右旋转
-{
 	SetMotorSpeed(1,-speed);
 	SetMotorSpeed(0,speed);
 	Mydelayms(time);
 	Car_Brake();
+	Mydelayms(100);
+}
+
+void Car_Spinright(int speed,int time)				//小车右旋转
+{
+	SetMotorSpeed(1,speed);
+	SetMotorSpeed(0,-speed);
+	Mydelayms(time);
+	Car_Brake();
+	Mydelayms(100);
 }
 
 void Car_Brake(void)

@@ -6,19 +6,17 @@
 #include "MSP430F5529.h"
 #include "compositeChars.h"
 #include "blacksearch.h"
+#include "metal.h"
+#include "hcsr04.h"
+#include <stdio.h>
 
-#define sec 1000
-
-char str_L[4],str_R[4];
 
 void Show(void);
-void Converse(void);
 void MCU_Init(void);
-void fix(void);
 
 void main (void)
 {
-	char key;
+	char key,i;
 	MCU_Init();
 	while(1)
 	{
@@ -29,69 +27,23 @@ void main (void)
 			switch(key)
 			{
 				case 1:
-						Show();
 						while(1)
 						{
 							SearchBlack();
 						}
 				case 2:
-						Show();
-						Car_Turn(3*sec);
+						Car_Forward(50,10*1000);
 						break;
 				case 3:
-						Show();
-						Car_Turn(3*sec);
+						Car_Spinleft(95,1000);
 						break;
 				case 4:
-						Clear();
-						Turn_time+=5;
-						fix();
-
-						Converse();
-						Clear();
+						for(i=0;i<5;i++)
+						Car_Spinleft(95,1000);
 						break;
 				case 5:
-						Clear();
-						Turn_time-=5;
-						fix();
-						Converse();
-						Clear();
 						break;
-				case 6:
-
-					Clear();
-					L_speed +=5;
-					fix();
-
-					Converse();
-					Clear();
-					break;
-				case 7:
-
-					Clear();
-					L_speed -=5;
-					fix();
-
-					Converse();
-					Clear();
-					break;
-				case 8:
-
-					Clear();
-					R_speed +=5;
-					fix();
-
-					Converse();
-					Clear();
-					break;
-				case 9:
-
-					Clear();
-					R_speed -=5;
-					fix();
-					Converse();
-					Clear();
-					break;
+				default: break;
 			}
 		}
 
@@ -99,27 +51,15 @@ void main (void)
 
 }
 
-void fix(void)
+void Show(void)
 {
-	if(L_speed<0||R_speed<0||Turn_time<0)
-	{
-		L_speed = 0;
-		R_speed = 0;
-		Turn_time = 0;
-	}
-}
- void Show(void)
-{
-		DrawcharS("Yes ,fix!!!",0,0);
-		DrawcharS(" L_s",1,1);DrawcharS(str_L,1,8);//DrawcharS(",",1,11);DrawcharS(str_P_y1,1,12);
-		DrawcharS(" R_s",2,1);DrawcharS(str_R,2,8);//DrawcharS(",",2,11);DrawcharS(str_P_y2,2,12);
-		DrawcharS(" Time",3,1);DrawcharS(str_R,3,8);
-}
+	char str_T[8],str_M[8];
+	sprintf(str_T,"%d",second);
+	sprintf(str_M,"%d",Metal_Num);
+	DrawcharS(" Time",1,1); DrawcharS(str_T,1,7);
+	DrawcharS(" Dista",1,1);
+	DrawcharS(" Metal",3,1);DrawcharS(str_M,3,7);
 
-void Converse(void)
-{
-	itoa(L_speed,str_L);
-	itoa(R_speed,str_R);
 }
 
 
@@ -129,9 +69,11 @@ void MCU_Init(void)
 	CLK_Init();
 	LCDInit();
 	LedInit();
+	Metal_Detect_Init();
 	KeyPort_Init();
 	MotorPort_Init();
 	PWM_Init();
+	pwm_catch_init();
 	SearchPort_Init();
 
 	Clear();
@@ -139,6 +81,7 @@ void MCU_Init(void)
 	DrawcharS("5.1--now",2,4);
 	Delay_ms(1000);
 	Clear();
+	DrawcharS("	Car Contol ",0,0);
 	_enable_interrupts();							//使能总中断
 
 }
