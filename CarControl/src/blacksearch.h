@@ -15,6 +15,6 @@
 #define FLAG_RIGHT BIT2
 
 void SearchPort_Init();
-void SearchBlack();
+void Car_SearchBlack();
 
 #endif /* SRC_BLACKSEARCH_H_ */

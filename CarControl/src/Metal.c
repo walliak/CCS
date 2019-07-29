@@ -7,21 +7,20 @@
 
 
 #include "Metal.h"
-#include "motor.h"
-#include "sysclock.h"
 
 int Metal_Num = 0;
+char cLedFlag = 0;
 
 void Metal_Detect_Init ()
 {
 	Catch_Channel_Init();
 }
 
-
 void Catch_Channel_Init()
 {
 		P2DIR &=~BIT0;			//捕获  IO输入
-		P2SEL  |= BIT0;
+		P2SEL |= BIT0;
+		P7DIR |= BIT4;			//彩灯输出
 
 		TA1CTL = 0;
 		TA1CTL |= TASSEL_2 + ID_0  + MC_2+ TACLR ;
@@ -31,17 +30,17 @@ void Catch_Channel_Init()
 #pragma vector=TIMER1_A1_VECTOR
 __interrupt void Timer1_A1 (void)
 {
-	TA1CCTL1 &=~TAIFG;
 	switch(TA1IV)
 	{
 		case TA1IV_TACCR1:
-				Metal_Num++;
 				if(Metal_Num==4)
 				{
+					MODE = AVOID;
 					Car_Brake();
-					Delayms(5000);
-					TA2CCTL2 |=BIT4;	//使能超声波捕获通道中断
+					Delay_ms(5000);
 				}
+				Metal_Num++;
+				cLedFlag =1;
 				break;
 		default:
 				break;

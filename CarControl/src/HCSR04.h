@@ -13,7 +13,11 @@
 #include <lcd.h>
 #include <stdio.h>
 #include "motor.h"
+#include "led.h"
 
+extern int avg;
+extern char avoid_times;
+void Car_AvoidBlock();
 void pwm_catch_init();
 void Deal_Distance();
 

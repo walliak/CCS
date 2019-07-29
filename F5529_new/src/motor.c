@@ -109,14 +109,14 @@ void Motor_Init()
  * 		返回值: null
  * 		功能:  将相序表中输出至相应IO口
  * */
-void	 Motor1_IO_Out( unsigned char data)
+void Motor1_IO_Out( unsigned char data)
 {
 		P1OUT =0;
 		P1OUT  |= (data << 2);   //左移两位至 P1.2
 }
 
 
-void	 Motor2_IO_Out(unsigned char data)
+void Motor2_IO_Out(unsigned char data)
 {
 		P2OUT 	 = 0;
 		P2OUT  |= ( data <<2);  //P2.2

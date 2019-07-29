@@ -17,15 +17,19 @@ main.obj: D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/i
 main.obj: D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/linkage.h
 main.obj: D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/_lock.h
 main.obj: D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/float.h
-main.obj: D:/CCS6.1.0.00104_win32/workspace/CarControl/src/compositeChars.h
-main.obj: D:/CCS6.1.0.00104_win32/workspace/CarControl/src/blacksearch.h
-main.obj: D:/CCS6.1.0.00104_win32/workspace/CarControl/src/metal.h
 main.obj: D:/CCS6.1.0.00104_win32/workspace/CarControl/src/lcd.h
 main.obj: D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/stdio.h
 main.obj: D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/stdarg.h
+main.obj: D:/CCS6.1.0.00104_win32/workspace/CarControl/src/metal.h
+main.obj: D:/CCS6.1.0.00104_win32/workspace/CarControl/src/lcd.h
+main.obj: D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/stdio.h
+main.obj: D:/CCS6.1.0.00104_win32/workspace/CarControl/src/motor.h
+main.obj: D:/CCS6.1.0.00104_win32/workspace/CarControl/src/compositeChars.h
+main.obj: D:/CCS6.1.0.00104_win32/workspace/CarControl/src/blacksearch.h
 main.obj: D:/CCS6.1.0.00104_win32/workspace/CarControl/src/hcsr04.h
 main.obj: D:/CCS6.1.0.00104_win32/workspace/CarControl/src/lcd.h
 main.obj: D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/stdio.h
+main.obj: D:/CCS6.1.0.00104_win32/workspace/CarControl/src/speedcatch.h
 main.obj: D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/stdio.h
 
 ../main.c: 
@@ -45,13 +49,17 @@ D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/std
 D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/linkage.h: 
 D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/_lock.h: 
 D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/float.h: 
-D:/CCS6.1.0.00104_win32/workspace/CarControl/src/compositeChars.h: 
-D:/CCS6.1.0.00104_win32/workspace/CarControl/src/blacksearch.h: 
-D:/CCS6.1.0.00104_win32/workspace/CarControl/src/metal.h: 
 D:/CCS6.1.0.00104_win32/workspace/CarControl/src/lcd.h: 
 D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/stdio.h: 
 D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/stdarg.h: 
+D:/CCS6.1.0.00104_win32/workspace/CarControl/src/metal.h: 
+D:/CCS6.1.0.00104_win32/workspace/CarControl/src/lcd.h: 
+D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/stdio.h: 
+D:/CCS6.1.0.00104_win32/workspace/CarControl/src/motor.h: 
+D:/CCS6.1.0.00104_win32/workspace/CarControl/src/compositeChars.h: 
+D:/CCS6.1.0.00104_win32/workspace/CarControl/src/blacksearch.h: 
 D:/CCS6.1.0.00104_win32/workspace/CarControl/src/hcsr04.h: 
 D:/CCS6.1.0.00104_win32/workspace/CarControl/src/lcd.h: 
 D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/stdio.h: 
+D:/CCS6.1.0.00104_win32/workspace/CarControl/src/speedcatch.h: 
 D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/stdio.h: 

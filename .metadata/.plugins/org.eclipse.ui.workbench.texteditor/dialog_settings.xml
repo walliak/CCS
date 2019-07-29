@@ -13,18 +13,19 @@
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="right" key="selection"/>
+		<item value="Clear();" key="selection"/>
 		<list key="findhistory">
+			<item value="Clear();"/>
+			<item value="Delayms"/>
 			<item value="left"/>
 			<item value="P"/>
 			<item value="LED1"/>
 			<item value="(P3IN &amp; 0x70)"/>
 			<item value="0X70"/>
 			<item value="0X30"/>
-			<item value="0X50"/>
-			<item value="0X60"/>
 		</list>
 		<list key="replacehistory">
+			<item value="Mydelayms"/>
 			<item value="right"/>
 			<item value="L"/>
 			<item value="READPB123"/>

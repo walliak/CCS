@@ -11,9 +11,17 @@
 #include "sysclock.h"
 #include "Math.h"
 #include "sysclock.h"
+#include "lcd.h"
+#include "stdio.h"
+#include "led.h"
+#include "metal.h"
+
 	extern int second;
+	typedef enum {TRACE,AVOID,LIGHT} mode;
+	extern mode MODE;
 	void PWM_Init(void);
 	void MotorPort_Init();
+	void Sec_Display();
 
 	void L1_Forward(void);
 	void L1_Backward(void);

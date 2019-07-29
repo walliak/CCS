@@ -14,6 +14,14 @@ src/motor.obj: D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.
 src/motor.obj: D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/linkage.h
 src/motor.obj: D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/_lock.h
 src/motor.obj: D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/float.h
+src/motor.obj: ../src/lcd.h
+src/motor.obj: D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/stdio.h
+src/motor.obj: D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/stdarg.h
+src/motor.obj: ../src/led.h
+src/motor.obj: ../src/metal.h
+src/motor.obj: D:/CCS6.1.0.00104_win32/workspace/CarControl/src/lcd.h
+src/motor.obj: D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/stdio.h
+src/motor.obj: ../src/motor.h
 
 ../src/motor.c: 
 ../src/motor.h: 
@@ -29,3 +37,11 @@ D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/std
 D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/linkage.h: 
 D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/_lock.h: 
 D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/float.h: 
+../src/lcd.h: 
+D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/stdio.h: 
+D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/stdarg.h: 
+../src/led.h: 
+../src/metal.h: 
+D:/CCS6.1.0.00104_win32/workspace/CarControl/src/lcd.h: 
+D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/stdio.h: 
+../src/motor.h: 

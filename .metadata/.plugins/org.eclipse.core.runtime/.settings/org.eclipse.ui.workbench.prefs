@@ -1,6 +1,5 @@
 ColorsAndFontsPreferencePage.expandedCategories=Torg.eclipse.ui.workbenchMisc
 ColorsAndFontsPreferencePage.selectedElement=Forg.eclipse.jface.textfont
-RUN_IN_BACKGROUND=true
 UIActivities.com.ti.ccstudio.activities.RSEActivity=true
 com.ti.ccstudio.branding.theme.default.org.eclipse.ui.workbench.ACTIVE_TAB_INNER_KEYLINE_COLOR=255,255,255
 com.ti.ccstudio.branding.theme.default.org.eclipse.ui.workbench.ACTIVE_TAB_OUTER_KEYLINE_COLOR=255,255,255

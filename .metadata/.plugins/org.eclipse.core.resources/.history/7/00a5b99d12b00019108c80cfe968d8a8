@@ -1,0 +1,89 @@
+#include <key.h>
+#include "led.h"
+#include "lcd.h"
+#include "sysclock.h"
+#include "motor.h"
+#include "MSP430F5529.h"
+#include "compositeChars.h"
+#include "blacksearch.h"
+#include "metal.h"
+#include "hcsr04.h"
+#include <stdio.h>
+
+void Show(void);
+void MCU_Init(void);
+
+void main (void)
+{
+
+	MCU_Init();
+	MODE = AVOID;
+	while(1)
+	{
+		Show();
+		switch(MODE)
+		{
+		case TRACE:
+				Car_SearchBlack();	//查询方式
+			break;
+		case AVOID:
+				Car_AvoidBlock();
+			break;
+		case LIGHT:
+				Car_Forward(20,0);
+			break;
+		}
+	}
+
+}
+
+void Show(void)
+{
+	char str_T[8],str_M[8],str_D[8],str_A[8];
+	sprintf(str_T,"%d",second);
+	sprintf(str_M,"%d",Metal_Num);
+	sprintf(str_D,"%d",avg);
+	sprintf(str_A,"%d",avoid_times);
+	DrawcharS("Dist",0,1);DrawcharS(str_D,0,7);
+	DrawcharS("Time",1,1);DrawcharS(str_T,1,7);
+	DrawcharS("MODE",2,1);						DrawcharS(str_A,2,10);
+	DrawcharS("Metal",3,1);DrawcharS(str_M,3,7);
+	switch(MODE)
+	{
+		case TRACE:
+			DrawcharS("0",2,7);
+				break;
+		case AVOID:
+			DrawcharS("1",2,7);
+				break;
+		case LIGHT:
+			DrawcharS("2",2,7);
+
+	}
+}
+
+
+void MCU_Init(void)
+{
+	WDTCTL=WDTPW+WDTHOLD; //关闭看门狗
+	CLK_Init();
+	LCDInit();
+	LedInit();
+	KeyPort_Init();
+
+	MotorPort_Init();
+	PWM_Init();			//电机初始化
+	Metal_Detect_Init();
+	pwm_catch_init();   //超声波模块初始化
+
+	SearchPort_Init();	//红外对管循迹模块初始化
+
+
+	Clear();
+	DrawcharS("Project-5",1,4);
+	DrawcharS("5.1--now",2,4);
+	Delay_ms(1000);
+	Clear();
+	_enable_interrupts();							//使能总中断
+
+}

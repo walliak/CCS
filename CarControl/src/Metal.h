@@ -11,8 +11,11 @@
 #include "MSP430F5529.h"
 #include <lcd.h>
 #include <stdio.h>
+#include "motor.h"
+#include "sysclock.h"
 
 extern int Metal_Num;
+extern char cLedFlag;
 void Metal_Detect_Init ();
 void Catch_Channel_Init();
 void Display_Num(int num);

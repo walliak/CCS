@@ -22,18 +22,18 @@ void SearchPort_Init()
 }
 
 
-void SearchBlack()
+void Car_SearchBlack()
 {
 	switch(READ_ALL)
 	{
 		case(FLAG_LEFT):
-				Car_Spinleft(95,1000);
+				Car_Spinleft(80,500);
 				break;
 		case(FLAG_RIGHT):
-				Car_Spinright(95,1000);
+				Car_Spinright(80,500);
 				break;
 		default:
-				Car_Forward(15,100);
+				Car_Forward(13,10);
 				break;
 	}
 }

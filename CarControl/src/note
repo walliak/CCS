@@ -1,48 +1,7 @@
-Car_Forward(70,10);
-Car_Left(80,3);		
-Car_Forward(70,10);
-Car_Right(80,3);
-Car_Forward(70,10);
-Car_Backward(70,35);
-
-
-
-
-//Test code    at AM
-	Mydelayms -> 100
-switch(key)
-			{
-				case 1:
-					Car_Forward(70,0);
-					break;
-				case 2:
-					Car_Forward(70,10);
-					Car_Left(80,3);
-					Car_Forward(70,10);
-					Car_Right(80,3);
-					Car_Forward(70,10);
-					Car_Backward(70,35);
-					break;
-				case 3:
-					Car_Forward(65,20);
-					break;
-				case 4:
-					Car_Backward(65,20);
-					break;
-				case 5:
-					Car_Left(75,3);
-					break;
-				case 6:
-					Car_Right(75,3);
-					break;
-				case 7:
-					Car_Spinleft(85,100);
-					break;
-				case 8:
-					Car_Spinright(85,100);
-					break;
-				case 9:
-					Car_Forward(75,20);
-					break;
-
-			}
+	
+					端口使用情况			中断优先级（数值越小越高）
+	超声波  				TA2   	50KHZ				5
+	金属探测				TA1							4
+	速度捕获				TB							1
+	主计时				TA0		16.67KHZ			3
+	光敏传感器			ADC12			2

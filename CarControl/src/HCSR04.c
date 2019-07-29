@@ -8,7 +8,7 @@
 #include "HCSR04.h"
 
 static long period[5];									//存放距离数据
-static int  avg = 0;
+int  avg = 0;
 /*
  * 说明:
  *			    _________
@@ -18,6 +18,7 @@ static int  avg = 0;
  *
  * */
 static int  OutTime = 0;								//溢出时间的次数
+char avoid_times = 0;
 
 /*
  * PWM波 ;捕获通道  初始化
@@ -41,14 +42,15 @@ void pwm_catch_init()
 		 TA2CCR1 = 500;				// 时钟为25M,  500 计数周期为20us
 
 		 TA2CCTL2 |= CCIE + CM_1 +SCS + CAP +CCIS_0;	//捕获通道,初始为上升沿捕获
-		 TA2CCTL2 &=~BIT4;		//禁止捕获通道中断
+//		 TA2CCTL2 &=~BIT4;		//禁止捕获通道中断
 }
 
 // 距离数据的处理
 void Deal_Distance()
 {
-//	int avg;
-	avg = (period[0] + period[1] +period[2] +period[3] +period[4])/5;
+	char str_dis[8];
+	sprintf(str_dis,"%d",avg);
+	DrawcharS(str_dis,2,7);
 }
 
 /*
@@ -61,8 +63,6 @@ void Deal_Distance()
 void event_Catch()
 {
 	static int  arr_num =0;
-	static int  count_Lcd_num =0;
-
 	switch((TA2CCTL2 & CM_2) )		//判断是否为下降沿
 			{
 				case 0 :								//上升沿
@@ -85,28 +85,52 @@ void event_Catch()
 					break;
 			}
 
-		if(arr_num == 5)								//当采集完5次距离数据
+	if(arr_num == 5)								//当采集完5次距离数据
+	{
+		arr_num=0;
+		avg = (period[0] + period[1] +period[2] +period[3] +period[4])/5;
+	}
+	switch(avoid_times)
+	{
+		case 0 :
+			if(avg == 25)
 			{
-				arr_num=0;
-				avg = (period[0] + period[1] +period[2] +period[3] +period[4])/5;
-				if(count_Lcd_num++ == 30)				//LCD 屏显示
-				{
-					count_Lcd_num=0;
-					 Deal_Distance();
-				}
+				avoid_times++;
+				LED1_HIGH;
 			}
-
+			break;
+		case 1:
+			if(avg == 30)
+				avoid_times++;
+			break;
+		case 2:
+			if(avg>60)
+			{
+				MODE = LIGHT;
+				LED1_LOW;
+			}
+		default:
+			break;
+	}
 }
 
-void Car_Avoid(void)
+void Car_AvoidBlock(void)
 {
-//	char Go_on = 0;
-	if(avg<=30)
+	if(avg<15)
 	{
-		Car_Spinleft(95,1000);
+		switch(avoid_times)
+			{
+				case 1:
+						Car_Spinleft(90,500);
+						break;
+				case 2:
+						Car_Spinright(80,500);
+						break;
+				default:
+						break;
+			}
 	}
-
-
+	Car_Forward(20,0);
 }
 /*
  * 捕获到上升或下降沿时触发中断
@@ -114,7 +138,7 @@ void Car_Avoid(void)
 #pragma vector=TIMER2_A1_VECTOR
 __interrupt void Timer2_A1 (void)
 {
-	TA2CCTL1 &=~TAIFG;
+//	TA2CCTL1 &=~TAIFG;
 	switch(TA2IV)							//对中断源进行判断
 	{
 		case TA2IV_TACCR2:					//捕获通道2中断

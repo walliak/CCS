@@ -9,10 +9,15 @@
 #include "motor.h"
 
 int second = 0;
+int times = 0;
+
+
+mode MODE = TRACE;
+
 void PWM_Init(void)
 {
-	TA0CTL = TASSEL__SMCLK+MC__UP+TACLR;
-
+	TA0CTL = TASSEL__SMCLK+MC__UP+TACLR+TAIE;
+//	TA0R = 25000;
 	TA0CCR0 = 1500;				//PWM频率 16.67KHZ
 
 	TA0CCTL1=OUTMOD_7;
@@ -22,29 +27,49 @@ void PWM_Init(void)
 	TA0CCR2 = 1250;
 
 	TA0CCTL3=OUTMOD_7;
-	TA0CCR3= 1250;
+	TA0CCR3 =1250;
 
 	TA0CCTL4=OUTMOD_7;
-	TA0CCR4 = 1250;
+	TA0CCR4 =1250;
 }
 
-#pragma vector=TIMER0_A0_VECTOR
-__interrupt void Timer0_A0 (void)
+#pragma vector=TIMER0_A1_VECTOR
+__interrupt void Timer0_A1 (void)
 {
-	TA0CCTL0 &=~TAIFG;
-	int times=0;
-	times++;
-	if(times<16667)
+	static int iLedTime = 0;
+	switch(TA0IV)
 	{
-		second++;
+		case TA0IV_TAIFG:
+				times++;
+				if(cLedFlag ==1)
+				{
+					iLedTime = second;
+					P7OUT |= BIT4;
+				}
+				if(times>16667)
+				{
+					second++;
+					times = 0;
+					if((iLedTime+1)==second)
+					{
+						cLedFlag =0;
+						P7OUT &=~BIT4;
+					}
+				}
+			break;
+		default:
+			break;
 	}
-	else
-	{
-		times = 0;
-	}
+
 
 }
 
+void Sec_Display()
+{
+	char str_T[8];
+	sprintf(str_T,"%d",second);
+	DrawcharS("Time",1,1);DrawcharS(str_T,1,7);
+}
 /***************************************************************************
  *				PWM输出引脚设置
  * P1.2 ->TA0.1
@@ -253,7 +278,7 @@ void Car_Forward(int speed,int time)				//小车前进
 	SetMotorSpeed(1,speed);
 	SetMotorSpeed(0,speed);
 	Mydelayms(time);
-	Car_Brake();
+
 }
 
 void Car_Left(int speed,int time)					//小车左转
