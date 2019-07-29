@@ -13,6 +13,7 @@ C_SRCS += \
 ../src/lcd.c \
 ../src/led.c \
 ../src/motor.c \
+../src/my_ADC.c \
 ../src/sysclock.c 
 
 OBJS += \
@@ -25,6 +26,7 @@ OBJS += \
 ./src/lcd.obj \
 ./src/led.obj \
 ./src/motor.obj \
+./src/my_ADC.obj \
 ./src/sysclock.obj 
 
 C_DEPS += \
@@ -37,6 +39,7 @@ C_DEPS += \
 ./src/lcd.pp \
 ./src/led.pp \
 ./src/motor.pp \
+./src/my_ADC.pp \
 ./src/sysclock.pp 
 
 C_DEPS__QUOTED += \
@@ -49,6 +52,7 @@ C_DEPS__QUOTED += \
 "src\lcd.pp" \
 "src\led.pp" \
 "src\motor.pp" \
+"src\my_ADC.pp" \
 "src\sysclock.pp" 
 
 OBJS__QUOTED += \
@@ -61,6 +65,7 @@ OBJS__QUOTED += \
 "src\lcd.obj" \
 "src\led.obj" \
 "src\motor.obj" \
+"src\my_ADC.obj" \
 "src\sysclock.obj" 
 
 C_SRCS__QUOTED += \
@@ -73,6 +78,7 @@ C_SRCS__QUOTED += \
 "../src/lcd.c" \
 "../src/led.c" \
 "../src/motor.c" \
+"../src/my_ADC.c" \
 "../src/sysclock.c" 
 
 

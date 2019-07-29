@@ -11,14 +11,14 @@
 #include "speedcatch.h"
 #include <stdio.h>
 
-void Show(void);
+int  Show(void);
 void MCU_Init(void);
 
 void main (void)
 {
 
 	MCU_Init();
-	MODE = TRACE;
+	MODE = AVOID;
 	while(1)
 	{
 
@@ -33,46 +33,47 @@ void main (void)
 				Car_AvoidBlock();
 			break;
 		case LIGHT:
-				Car_Forward(20,0);
+				Car_Forward(10,0);
 			break;
 		}
 	}
 
 }
 
-void Show(void)
+int Show(void)
 {
-	static unsigned int Lcdtimes = 0;
-	int iStraightDistance =0;
-	char str_T[8],str_M[8],str_D[8],str_A[8],str_SD[8];
-	if(Lcdtimes++==100)
+	char str_T[8],str_M[8],str_D[8],str_A[8];
+	static int siSaveTime;
+	if(siSaveTime  == second)
 	{
-		Lcdtimes=0;
-		Clear();
-			iStraightDistance = (int)((lPulseTotal)*0.0379);
-			sprintf(str_T,"%d",second);
-			sprintf(str_M,"%d",Metal_Num);
-			sprintf(str_D,"%d",avg);
-			sprintf(str_A,"%d",avoid_times);
-			sprintf(str_SD,"%d",iStraightDistance);
-			DrawcharS("Dist",0,1);DrawcharS(str_D,0,7);DrawcharS(str_SD,0,11);
-			DrawcharS("Time",1,1);DrawcharS(str_T,1,7);
-			DrawcharS("MODE",2,1);						DrawcharS(str_A,2,10);
-			DrawcharS("Metal",3,1);DrawcharS(str_M,3,7);
-			switch(MODE)
-			{
-				case TRACE:
-					DrawcharS("0",2,7);
-						break;
-				case AVOID:
-					DrawcharS("1",2,7);
-						break;
-				case LIGHT:
-					DrawcharS("2",2,7);
-
-			}
+		siSaveTime = second;
+		return 0;
 	}
+	sprintf(str_T,"%d",second);
+	sprintf(str_M,"%d",Metal_Num);
+	sprintf(str_D,"%d",avg);
+	sprintf(str_A,"%d",avoid_times);
+	Clear();
+	DrawcharS("Dist",0,1);DrawcharS(str_D,0,7);
+	DrawcharS("Time",1,1);DrawcharS(str_T,1,7);
+	DrawcharS("MODE",2,1);						DrawcharS(str_A,2,10);
+	DrawcharS("Metal",3,1);DrawcharS(str_M,3,7);
+	switch(MODE)
+	{
+		case TRACE:
+			DrawcharS("0",2,7);
+				break;
+		case AVOID:
+			DrawcharS("1",2,7);
+				break;
+		case LIGHT:
+			DrawcharS("2",2,7);
+
+	}
+	siSaveTime = second;
+	return 1;
 }
+
 
 void MCU_Init(void)
 {

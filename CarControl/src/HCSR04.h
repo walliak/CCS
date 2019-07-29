@@ -20,6 +20,7 @@ extern char avoid_times;
 void Car_AvoidBlock();
 void pwm_catch_init();
 void Deal_Distance();
-
+void Open_HCSR();
+void Close_HCSR();
 
 #endif /* SRC_HCSR04_H_ */
