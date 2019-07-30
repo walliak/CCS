@@ -37,7 +37,6 @@ __interrupt void Timer1_A1 (void)
 				if(Metal_Num==4)
 				{
 					MODE = AVOID;
-					Car_Backward(80,200);
 					Car_Brake();
 					Delay_ms(5000);
 				}

@@ -99,50 +99,8 @@ void event_Catch()
 
 		avg = uiSum/10;
 	}
-	switch(avoid_times)
-	{
-		case 0 :
-			if(avg>28&&avg<32)
-			{
-				avoid_times =1;
-				LED1_HIGH;
-			}
-			break;
-		case 1:
-			if(avg>40&&avg<50)
-				avoid_times =2;
-			break;
-		default:
-			break;
-	}
 }
 
-void Car_AvoidBlock(void)
-{
-	switch(avoid_times)
-			{
-				case 1:
-						if(avg<25)
-						{
-//							Close_HCSR();
-							Car_Spinleft(60,100);
-//							Open_HCSR();
-							break;
-						}
-						break;
-				case 2:
-						if(avg<25)
-						{
-//							Close_HCSR();
-							Car_Spinright(60,100);
-//							Open_HCSR();
-						}
-						break;
-				default:
-						break;
-			}
-	Car_Forward(30,0);
-}
 /*
  * 捕获到上升或下降沿时触发中断
  * */
@@ -158,4 +116,44 @@ __interrupt void Timer2_A1 (void)
 					OutTime++; break;
 		default: break;
 	}
+}
+
+
+void Left_Try(void)
+{
+	Car_Spinleft(60,800);
+}
+
+void Right_Try(void)
+{
+	Car_Spinright(60,300);
+}
+
+void Car_AvoidBlock(void)
+{
+	static char cLeft =1;
+	char cLeftNum = 0;
+	char cRightNum = 0;
+	/*
+	 * 	左转一次即可
+	 */
+	if(cLeft==1)
+	{
+		while(avg<30)
+		{
+			Left_Try();
+			cLeftNum++;
+		}
+		Left_Try();
+		cLeft =2;
+	}
+	/*
+	 *	持续右转
+	 */
+	while(avg<30)
+	{
+		Right_Try();
+		cRightNum++;
+	}
+	Car_Forward(20,0);
 }

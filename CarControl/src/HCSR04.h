@@ -20,6 +20,8 @@ extern char avoid_times;
 void Car_AvoidBlock();
 void pwm_catch_init();
 void Deal_Distance();
+void Left_Try();
+void Right_Try();
 void Open_HCSR();
 void Close_HCSR();
 

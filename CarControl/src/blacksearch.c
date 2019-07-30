@@ -33,7 +33,7 @@ void Car_SearchBlack()
 				Car_Spinright(60,100);
 				break;
 		default:
-				Car_Forward(50,0);
+				Car_Forward(30,0);
 				break;
 	}
 }

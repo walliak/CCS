@@ -18,7 +18,7 @@ void main (void)
 {
 
 	MCU_Init();
-	MODE = AVOID;
+	MODE = TRACE;
 	while(1)
 	{
 
@@ -33,7 +33,7 @@ void main (void)
 				Car_AvoidBlock();
 			break;
 		case LIGHT:
-				Car_Forward(10,0);
+				Car_Brake();
 			break;
 		}
 	}
