@@ -23,6 +23,9 @@
 	void MotorPort_Init();
 	void Sec_Display();
 
+/***************************************
+ * 	左（L1、L2）右轮（R1、R2）转动函数
+ */
 	void L1_Forward(void);
 	void L1_Backward(void);
 	void L1_Stop(void);
@@ -36,6 +39,10 @@
 	void R2_Backward(void);
 	void R2_Stop(void);
 
+/***************************************
+ * 小车运动函数
+ * 实际以旋转代替左右转弯
+ */
 	void SetMotorSpeed(char channel, int speed);			//设置速度
 	void Car_Run(int L_speed,int R_speed,int time);
 	void Car_Forward(int speed,int time);					//小车前进

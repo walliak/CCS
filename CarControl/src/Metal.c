@@ -33,13 +33,15 @@ __interrupt void Timer1_A1 (void)
 	switch(TA1IV)
 	{
 		case TA1IV_TACCR1:
+				Metal_Num++;
 				if(Metal_Num==4)
 				{
 					MODE = AVOID;
+					Car_Backward(80,200);
 					Car_Brake();
 					Delay_ms(5000);
 				}
-				Metal_Num++;
+
 				cLedFlag =1;
 				break;
 		default:

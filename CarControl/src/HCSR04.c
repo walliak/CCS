@@ -102,23 +102,16 @@ void event_Catch()
 	switch(avoid_times)
 	{
 		case 0 :
-			if(avg>20&&avg<25)
+			if(avg>28&&avg<32)
 			{
 				avoid_times =1;
 				LED1_HIGH;
 			}
 			break;
 		case 1:
-			if(avg>30&&avg<50)
+			if(avg>40&&avg<50)
 				avoid_times =2;
 			break;
-//		case 2:
-//			if(avg>100)
-//			{
-//				avoid_times =3;
-//				MODE = LIGHT;
-//				LED1_LOW;
-//			}
 		default:
 			break;
 	}
@@ -126,38 +119,29 @@ void event_Catch()
 
 void Car_AvoidBlock(void)
 {
-	static int fix = 0;
 	switch(avoid_times)
 			{
 				case 1:
-						if(avg<20)
+						if(avg<25)
 						{
-							Close_HCSR();
-							Car_Spinleft(90,500);
-							Open_HCSR();
+//							Close_HCSR();
+							Car_Spinleft(60,100);
+//							Open_HCSR();
 							break;
-						}
-						if(avg>25)
-						{
-							fix++;
-							if(fix ==1)
-							{
-								Car_Spinleft(90,1000);
-							}
 						}
 						break;
 				case 2:
-						if(avg<15)
+						if(avg<25)
 						{
-							Close_HCSR();
-							Car_Spinright(80,200);
-							Open_HCSR();
+//							Close_HCSR();
+							Car_Spinright(60,100);
+//							Open_HCSR();
 						}
 						break;
 				default:
 						break;
 			}
-	Car_Forward(1560,0);
+	Car_Forward(30,0);
 }
 /*
  * 捕获到上升或下降沿时触发中断
@@ -172,7 +156,6 @@ __interrupt void Timer2_A1 (void)
 
 		case TA2IV_TAIFG:					//主定时器溢出中断
 					OutTime++; break;
-
 		default: break;
 	}
 }

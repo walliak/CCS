@@ -27,13 +27,13 @@ void Car_SearchBlack()
 	switch(READ_ALL)
 	{
 		case(FLAG_LEFT):
-				Car_Spinleft(80,500);
+				Car_Spinleft(60,100);
 				break;
 		case(FLAG_RIGHT):
-				Car_Spinright(80,500);
+				Car_Spinright(60,100);
 				break;
 		default:
-				Car_Forward(13,10);
+				Car_Forward(50,0);
 				break;
 	}
 }
