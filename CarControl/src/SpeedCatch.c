@@ -8,7 +8,7 @@
 
 #include "SpeedCatch.h"
 
-float  speed ;
+//float  speed ;
 long lPulseTotal =0;
 void Speed_Catch_Init ()
 {
@@ -37,11 +37,11 @@ __interrupt void Timer0_B1 (void)
 		case TB0IV_TBCCR5 :
 				Pulse_Num++;
 				lPulseTotal++;
-				if(Pulse_Num == 0)															//车轮刚开始旋转
+				if(Pulse_Num == 0)			//车轮刚开始旋转
 					Time = 0;
 				if(Pulse_Num ==200)			//大约走半圈算一次速度
 				{
-					speed = (200/390)*(1000*14.8) / (Time*2.621);   			// 单位: cm/s
+//					speed = (200/390)*(1000*14.8) / (Time*2.621);   		// 单位: cm/s
 					Time = 0;
 					Pulse_Num=0;
 				}

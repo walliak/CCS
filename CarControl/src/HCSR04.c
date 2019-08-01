@@ -8,7 +8,6 @@
 #include "HCSR04.h"
 
 static long period[10];									//存放距离数据
-int  avg = 0;
 
 /*
  * 说明:
@@ -20,6 +19,7 @@ int  avg = 0;
  * */
 static int  OutTime = 0;								//溢出时间的次数
 char avoid_times = 0;
+int avg = 0;
 
 /*
  * PWM波 ;捕获通道  初始化
@@ -132,17 +132,17 @@ void Right_Try(void)
 void Car_AvoidBlock(void)
 {
 	static char cLeft =1;
-	char cLeftNum = 0;
-	char cRightNum = 0;
+//	char cLeftNum = 0;
+//	char cRightNum = 0;
 	/*
-	 * 	左转一次即可
+	 * 	首次左转即可
 	 */
 	if(cLeft==1)
 	{
 		while(avg<30)
 		{
 			Left_Try();
-			cLeftNum++;
+//			cLeftNum++;
 		}
 		Left_Try();
 		cLeft =2;
@@ -153,7 +153,7 @@ void Car_AvoidBlock(void)
 	while(avg<30)
 	{
 		Right_Try();
-		cRightNum++;
+//		cRightNum++;
 	}
 	Car_Forward(20,0);
 }

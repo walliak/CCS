@@ -23,6 +23,7 @@ src/blacksearch.obj: ../src/metal.h
 src/blacksearch.obj: D:/CCS6.1.0.00104_win32/workspace/CarControl/src/lcd.h
 src/blacksearch.obj: D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/stdio.h
 src/blacksearch.obj: ../src/motor.h
+src/blacksearch.obj: ../src/speedcatch.h
 
 ../src/blacksearch.c: 
 ../src/blacksearch.h: 
@@ -47,3 +48,4 @@ D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/std
 D:/CCS6.1.0.00104_win32/workspace/CarControl/src/lcd.h: 
 D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/stdio.h: 
 ../src/motor.h: 
+../src/speedcatch.h: 

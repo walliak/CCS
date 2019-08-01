@@ -1,0 +1,63 @@
+/*
+ * my_ADC.c
+ *
+ *  Created on: 2019年7月9日
+ *      Author: JOJO
+ */
+
+#include "my_ADC.h"
+
+/*
+ *说明：初始化后需要 start_adc12()  才能进行采样   ；
+ * 			当不提供start 时，不会进入中断；
+ * 			stop  关闭中断 ；
+ * */
+int adc12_init()
+{
+	  ADC12CTL0 = ADC12SHT02 + ADC12ON;        				 // Sampling time, ADC12 on
+	  ADC12CTL1 = ADC12SHP + ADC12SSEL_1 ;                   // Use sampling timer   32KHZ
+	  ADC12IE = 0x01;                          				 // Enable interrupt
+	  ADC12CTL0 |= ADC12ENC+ADC12SC;
+	  P6SEL |= BIT0 + BIT6;                            		 // P6.0 ADC option select
+      return 0;
+}
+
+void Start_ADC12IT()
+{
+	 ADC12IE = 1;
+}
+
+void Stop_ADC12IT()
+{
+	ADC12IE = 0;
+}
+
+#define N 12 //采样个数
+static  int  siLightness[N];							//亮度参数 : L = -14 +1.82X     【距离X】
+
+/******************************************************************************************************
+ * 名       称：ADC12_ISR_HOOK
+ * 功       能：ADC转换完成后触发，写入数据，并开启下一次AD采样
+ * 入口参数：无
+ * 出口参数：无
+ * 说       明：null
+ * 范       例：无
+ ******************************************************************************************************/
+#pragma vector=ADC12_VECTOR
+__interrupt void adc12_ISR_hook(void)
+{
+	static int siLightCount = 0;
+	siLightness[siLightCount++] = ADC12MEM0;    //ADC结果存入数组
+	if(siLightCount == N)
+	{
+		siLightCount = 0;
+		Stop_ADC12IT();
+	}
+}
+
+
+//void Search_Light();
+//{
+//
+//}
+

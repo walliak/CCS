@@ -10,13 +10,13 @@
 #include "hcsr04.h"
 #include "speedcatch.h"
 #include <stdio.h>
+#include "my_adc.h"
 
 int  Show(void);
 void MCU_Init(void);
 
 void main (void)
 {
-
 	MCU_Init();
 	MODE = TRACE;
 	while(1)
@@ -33,6 +33,9 @@ void main (void)
 				Car_AvoidBlock();
 			break;
 		case LIGHT:
+				Car_SearchLight();
+			break;
+		case STOP:
 				Car_Brake();
 			break;
 		}
@@ -42,7 +45,7 @@ void main (void)
 
 int Show(void)
 {
-	char str_T[8],str_M[8],str_D[8],str_A[8];
+	char str_T[8],str_D[8],str_M[8];
 	static int siSaveTime;
 	if(siSaveTime  == second)
 	{
@@ -50,30 +53,29 @@ int Show(void)
 		return 0;
 	}
 	sprintf(str_T,"%d",second);
+	sprintf(str_D,"%d",iMetalDistance);
 	sprintf(str_M,"%d",Metal_Num);
-	sprintf(str_D,"%d",avg);
-	sprintf(str_A,"%d",avoid_times);
 	Clear();
-	DrawcharS("Dist",0,1);DrawcharS(str_D,0,7);
-	DrawcharS("Time",1,1);DrawcharS(str_T,1,7);
-	DrawcharS("MODE",2,1);						DrawcharS(str_A,2,10);
+	DrawcharS("MODE ",0,1);
+	DrawcharS("Time ",1,1);DrawcharS(str_T,1,7);
+	DrawcharS("Dista",2,1);DrawcharS(str_D,2,7);
 	DrawcharS("Metal",3,1);DrawcharS(str_M,3,7);
 	switch(MODE)
 	{
 		case TRACE:
-			DrawcharS("0",2,7);
+			DrawcharS("1",0,7);
 				break;
 		case AVOID:
-			DrawcharS("1",2,7);
+			DrawcharS("2",0,7);
 				break;
 		case LIGHT:
-			DrawcharS("2",2,7);
-
+			DrawcharS("3",0,7);
+		case STOP:
+			DrawcharS("4",0,7);
 	}
 	siSaveTime = second;
 	return 1;
 }
-
 
 void MCU_Init(void)
 {
@@ -92,8 +94,8 @@ void MCU_Init(void)
 
 
 	Clear();
-	DrawcharS("Project-5",1,4);
-	DrawcharS("5.1--now",2,4);
+	DrawcharS("Car-Control",1,4);
+	DrawcharS("-----------",2,4);
 	Delay_ms(1000);
 	Clear();
 	_enable_interrupts();							//使能总中断

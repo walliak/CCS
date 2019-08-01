@@ -22,6 +22,7 @@ src/motor.obj: ../src/metal.h
 src/motor.obj: D:/CCS6.1.0.00104_win32/workspace/CarControl/src/lcd.h
 src/motor.obj: D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/stdio.h
 src/motor.obj: ../src/motor.h
+src/motor.obj: ../src/speedcatch.h
 
 ../src/motor.c: 
 ../src/motor.h: 
@@ -45,3 +46,4 @@ D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/std
 D:/CCS6.1.0.00104_win32/workspace/CarControl/src/lcd.h: 
 D:/CCS6.1.0.00104_win32/CCS/ccsv6/tools/compiler/ti-cgt-msp430_4.4.3/include/stdio.h: 
 ../src/motor.h: 
+../src/speedcatch.h: 

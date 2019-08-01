@@ -15,26 +15,25 @@
 int adc12_init()
 {
 	  ADC12CTL0 = ADC12SHT02 + ADC12ON;        				 // Sampling time, ADC12 on
-	  ADC12CTL1 = ADC12SHP + ADC12SSEL_1 ;                     // Use sampling timer   32KHZ
-	  ADC12IE = 0x01;                          									 // Enable interrupt
-	  ADC12CTL0 |= ADC12ENC;
-	  P6SEL |= BIT0 + BIT6;                            									// P6.0 ADC option select
+	  ADC12CTL1 = ADC12SHP + ADC12SSEL_1 ;                   // Use sampling timer 32KHZ
+	  ADC12CTL0 |= ADC12ENC+ADC12SC;						 // Enable conversion and start conversion
+	  P6SEL |= BIT0 + BIT6;                            		 // P6.0 ADC option select
+	  ADC12IE = 0x01;                          				 // Enable interrupt
       return 0;
 }
 
-void start_adc12()
+void Start_ADC12IT()
 {
-	 ADC12CTL0 |=ADC12SC;
+	 ADC12IE = 1;
 }
 
-void stop_adc12()
+void Stop_ADC12IT()
 {
 	ADC12IE = 0;
 }
 
-static  float  sfLightness[2][50];							//亮度参数 : L = -14 +1.82X     【距离X】
+static  int  siLightness[N_ADC];							//亮度参数 : L = -14 +1.82X     【距离X】
 
-static float sfAvg[2];					//处理后的亮度数据，0： 正面  1:侧面
 /******************************************************************************************************
  * 名       称：ADC12_ISR_HOOK
  * 功       能：ADC转换完成后触发，写入数据，并开启下一次AD采样
@@ -47,29 +46,42 @@ static float sfAvg[2];					//处理后的亮度数据，0： 正面  1:侧面
 __interrupt void adc12_ISR_hook(void)
 {
 	static int siLightCount = 0;
-	int iSum = 0;
-	int iSum2 = 0;
-
-	char i = 0;
-	sfLightness[0][siLightCount++] = ADC12MEM0;    //ADC结果存入数组
-	sfLightness[1][siLightCount++] = ADC12MEM6;    //ADC结果存入数组
-	if(siLightCount == 50)
+	siLightness[siLightCount++] = ADC12MEM0;    //ADC结果存入数组
+	if(siLightCount == N_ADC)
 	{
 		siLightCount = 0;
-		for(;i<100;i++)
-		{
-			iSum +=sfLightness[0][i];
-			iSum2+=sfLightness[1][i];
-		}
-		sfAvg[0] = iSum/50.0;			//正面传感器
-		sfAvg[1] = iSum2/50.0;			//侧面传感器
+		Stop_ADC12IT();
 	}
-	start_adc12();
 }
 
+void Car_SearchLight()
+{
 
-//void Search_Light();
-//{
-//
-//}
+}
 
+/***********************************
+ * 	对采样得到的光强数组
+ * 	去掉最大值和最小值，再求平均。
+ *
+ *********************************/
+
+int filter()
+{
+   char count,i,j;
+   int  sum=0,temp=0;
+   for (j=0;j<N_ADC-1;j++)
+   {
+      for (i=0;i<N_ADC-j;i++)
+      {
+         if ( siLightness[i]>siLightness[i+1] )
+         {
+            temp = siLightness[i];
+            siLightness[i] = siLightness[i+1];
+            siLightness[i+1] = temp;
+         }
+      }
+   }
+   for(count=1;count<N_ADC-1;count++)
+      sum += siLightness[count];
+   return (int)(sum/(N_ADC-2));
+}

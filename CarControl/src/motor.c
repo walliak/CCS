@@ -5,19 +5,16 @@
  *      Author: Think
  */
 
-
 #include "motor.h"
 
 int second = 0;
 int times = 0;
-
 
 mode MODE = TRACE;
 
 void PWM_Init(void)
 {
 	TA0CTL = TASSEL__SMCLK+MC__UP+TACLR+TAIE;
-//	TA0R = 25000;
 	TA0CCR0 = 1500;				//PWM频率 16.67KHZ
 
 	TA0CCTL1=OUTMOD_7;
@@ -33,6 +30,16 @@ void PWM_Init(void)
 	TA0CCR4 =1250;
 }
 
+void Start_Timer0IT()
+{
+
+}
+
+void Close_Timer0IT()
+{
+
+}
+
 #pragma vector=TIMER0_A1_VECTOR
 __interrupt void Timer0_A1 (void)
 {
@@ -45,6 +52,10 @@ __interrupt void Timer0_A1 (void)
 				{
 					iLedTime = second;
 					P7OUT |= BIT4;
+				}
+				if(second == 90)
+				{
+					MODE = STOP;
 				}
 				if(times>16667)
 				{
@@ -64,12 +75,6 @@ __interrupt void Timer0_A1 (void)
 
 }
 
-void Sec_Display()
-{
-	char str_T[8];
-	sprintf(str_T,"%d",second);
-	DrawcharS("Time",1,1);DrawcharS(str_T,1,7);
-}
 /***************************************************************************
  *				PWM输出引脚设置
  * P1.2 ->TA0.1

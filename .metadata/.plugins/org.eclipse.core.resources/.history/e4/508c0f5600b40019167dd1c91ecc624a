@@ -1,0 +1,32 @@
+/*
+ * filter.c
+ *
+ *  Created on: 2019Äê7ÔÂ31ÈÕ
+ *      Author: Think
+ */
+
+#define N 12
+
+int filter()
+{
+   char count,i,j;
+   int value_buf[N];
+   int  sum=0,temp=0;
+   for (j=0;j<N-1;j++)
+   {
+      for (i=0;i<N-j;i++)
+      {
+         if ( value_buf[i]>value_buf[i+1] )
+         {
+            temp = value_buf[i];
+            value_buf[i] = value_buf[i+1];
+            value_buf[i+1] = temp;
+         }
+      }
+   }
+   for(count=1;count<N-1;count++)
+      sum += value[count];
+   return (int)(sum/(N-2));
+
+}
+

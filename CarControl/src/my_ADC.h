@@ -10,9 +10,12 @@
 
 #include "MSP430F5529.h"
 
-int adc12_init();
-void start_adc12();
-void stop_adc12();
+#define N_ADC 12 //采样个数
 
+int adc12_init();
+void Start_ADC12IT();
+void Stop_ADC12IT();
+void Car_SearchLight();
+int  filter();
 
 #endif /* SRC_MY_ADC_H_ */

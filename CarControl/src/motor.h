@@ -17,11 +17,10 @@
 #include "metal.h"
 
 	extern int second;
-	typedef enum {TRACE,AVOID,LIGHT} mode;
+	typedef enum {TRACE,AVOID,LIGHT,STOP} mode;
 	extern mode MODE;
 	void PWM_Init(void);
 	void MotorPort_Init();
-	void Sec_Display();
 
 /***************************************
  * 	×ó£¨L1¡¢L2£©ÓÒÂÖ£¨R1¡¢R2£©×ª¶¯º¯Êý

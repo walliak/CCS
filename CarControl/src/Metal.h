@@ -13,11 +13,12 @@
 #include <stdio.h>
 #include "motor.h"
 #include "sysclock.h"
+#include "speedcatch.h"
 
-extern int Metal_Num;
 extern char cLedFlag;
+extern int Metal_Num;
+extern int iMetalDistance;
 void Metal_Detect_Init ();
 void Catch_Channel_Init();
-void Display_Num(int num);
-
+void Show_Stop();
 #endif /* SRC_METAL_H_ */

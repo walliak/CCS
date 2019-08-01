@@ -9,6 +9,7 @@
 #include "Metal.h"
 
 int Metal_Num = 0;
+int iMetalDistance = 0;
 char cLedFlag = 0;
 
 void Metal_Detect_Init ()
@@ -34,17 +35,32 @@ __interrupt void Timer1_A1 (void)
 	{
 		case TA1IV_TACCR1:
 				Metal_Num++;
+				iMetalDistance =(int)((lPulseTotal/390)*14.8);
 				if(Metal_Num==4)
 				{
 					MODE = AVOID;
 					Car_Brake();
-					Delay_ms(5000);
+					Show_Stop();
 				}
-
 				cLedFlag =1;
 				break;
 		default:
 				break;
 	}
 
+}
+
+void Show_Stop()
+{
+	P7OUT|=BIT4;
+	Delay_ms(1000);
+	P7OUT&=~BIT4;
+	Delay_ms(1000);
+	P7OUT|=BIT4;
+	Delay_ms(1000);
+	P7OUT&=~BIT4;
+	Delay_ms(1000);
+	P7OUT|=BIT4;
+	Delay_ms(1000);
+	P7OUT&=~BIT4;
 }
