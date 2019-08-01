@@ -16,6 +16,8 @@
 		<item value="8" key="DIALOG_Y_ORIGIN"/>
 		<item value="349" key="DIALOG_X_ORIGIN"/>
 	</section>
+	<section name="ZipFileImportWizard">
+	</section>
 	<section name="ZipFileExportWizard">
 		<item value="true" key="WizardZipFileResourceExportPage1.STORE_CREATE_STRUCTURE_ID"/>
 		<item value="true" key="WizardZipFileResourceExportPage1.STORE_COMPRESS_CONTENTS_ID"/>
@@ -23,8 +25,6 @@
 			<item value="E:\WindowsDesktop\废材.zip"/>
 			<item value="E:\WindowsDesktop\123.zip"/>
 		</list>
-	</section>
-	<section name="ZipFileImportWizard">
 	</section>
 	<section name="org.eclipse.ui.preferences.keysPreferencePage">
 	</section>

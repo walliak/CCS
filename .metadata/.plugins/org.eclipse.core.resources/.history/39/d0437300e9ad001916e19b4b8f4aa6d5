@@ -1,6 +1,0 @@
-Car_Forward(70,10);
-Car_Left(80,3);		
-Car_Forward(70,10);
-Car_Right(80,3);
-Car_Forward(70,10);
-Car_Backward(70,35);
